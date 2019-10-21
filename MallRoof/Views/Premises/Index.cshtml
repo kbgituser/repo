@@ -1,0 +1,104 @@
+﻿@*@model IEnumerable<MallRoof.Models.Premise>*@
+@using MallRoof.Models
+@model MallRoof.Models.PremisesMallListModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Помещения</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.DropDownList("MallId", new SelectList(Model.Malls, "MallId", "Name", Request.Params["mallId"]), "Выберите центр")
+    <br />
+    @Html.TextBox("Price", Request.Params["price"], new { placeholder = "Цена", @class = "allownumericwithoutdecimal" })
+    @Html.TextBox("Area", Request.Params["area"], new { placeholder = "Площадь", @class = "allownumericwithoutdecimal" })
+    @Html.CheckBox("HasWindow", Request.Params["HasWindow"])
+    <input type="submit" value="Поиск" class="btn btn-default" />
+
+}
+
+
+@if (ViewBag.Malls != null)
+{
+    foreach (var item in ViewBag.Malls)
+    {
+        @Html.ActionLink("Создать", "Create", "Premises", new { id = item.MallId }, null)
+    }
+}
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Premises.SingleOrDefault().Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Premises.SingleOrDefault().Floor)
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Premises.SingleOrDefault().Area)*@
+            @Html.ActionLink("Площадь", "Index", new { order = ViewBag.AreaSortParam })
+            @Html.SortIdentifier(Request.Params["order"], "area")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Premises.SingleOrDefault().IsLastFloor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Premises.SingleOrDefault().HasWindow)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Premises.SingleOrDefault().Description)
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Premises.SingleOrDefault().Price)*@
+            @Html.ActionLink("Цена", "Index", new { order = ViewBag.PriceSortParam })
+            @Html.SortIdentifier(Request.Params["order"], "price")
+            @*@if (ViewBag.PriceSortParam.Contains("desc"))
+            {
+                <span class="glyphicon glyphicon-chevron-down"></span>
+            }
+            else
+            {
+                <span class="glyphicon glyphicon-chevron-up"></span>
+            }*@
+
+        </th>        
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Premises)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Floor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Area)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsLastFloor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HasWindow)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>            
+            <td>
+                @Html.ActionLink("Изменить", "Edit", new { id = item.PremiseId }) |
+                @Html.ActionLink("Детали", "Details", new { id = item.PremiseId }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.PremiseId })
+            </td>
+        </tr>
+    }
+</table>

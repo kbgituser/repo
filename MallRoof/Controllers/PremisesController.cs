@@ -187,6 +187,7 @@ namespace MallRoof.Controllers
         }
 
         // GET: Premises/Delete/5
+        [Authorize]
         public ActionResult Delete(Guid? id)
         {
             if (id == null)

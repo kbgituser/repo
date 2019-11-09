@@ -29,6 +29,7 @@ namespace MallRoof.Models
         [Display(Name = "Есть ли окно?")]
         public bool HasWindow { get; set; }
         [Display(Name = "Описание")]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         [Display(Name = "Цена")]
         public double Price { get; set; }

@@ -26,13 +26,17 @@
 {
     foreach (var item in ViewBag.Malls)
     {
-        @Html.ActionLink("Создать", "Create", "Premises", new { id = item.MallId }, null)
+        string mallname = "Новое помещение в " + item.Name;
+        @Html.ActionLink(mallname, "Create", "Premises", new { id = item.MallId }, null)
     }
 }
 
 
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Premises.SingleOrDefault().Mall.Name)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Premises.SingleOrDefault().Number)
         </th>
@@ -66,39 +70,42 @@
                 <span class="glyphicon glyphicon-chevron-up"></span>
             }*@
 
-        </th>        
+        </th>
         <th></th>
     </tr>
 
     @foreach (var item in Model.Premises)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Number)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Floor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Area)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsLastFloor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HasWindow)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>            
-            <td>
-                @Html.ActionLink("Изменить", "Edit", new { id = item.PremiseId }) |
-                @Html.ActionLink("Детали", "Details", new { id = item.PremiseId }) |
-                @Html.ActionLink("Удалить", "Delete", new { id = item.PremiseId })
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mall.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Floor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Area)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsLastFloor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HasWindow)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.ActionLink("Изменить", "Edit", new { id = item.PremiseId }) |
+            @Html.ActionLink("Детали", "Details", new { id = item.PremiseId }) |
+            @Html.ActionLink("Удалить", "Delete", new { id = item.PremiseId })
+        </td>
+    </tr>
     }
 </table>

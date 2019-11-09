@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Торговые центры</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
+<p class="text-center">
+    @Html.ActionLink("Новый центр", "Create")    
 </p>
 <table class="table">
     <tr>
@@ -38,10 +38,10 @@
             @Html.DisplayFor(modelItem => item.NumberOfFloors)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.MallId }) |
-            @Html.ActionLink("Details", "Details", new { id = item.MallId }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.MallId })
-            @Html.ActionLink("Добавить помещение к этому центру", "Create", "Premises", new { id= item.MallId }, null)
+            @Html.ActionLink("Добавить помещение к этому центру", "Create", "Premises", new { id = item.MallId }, null) |
+            @Html.ActionLink("Изменить", "Edit", new { id = item.MallId }) |
+            @*@Html.ActionLink("Details", "Details", new { id = item.MallId }) |*@
+            @Html.ActionLink("Удалить", "Delete", new { id = item.MallId }) |
         </td>
     </tr>
 }

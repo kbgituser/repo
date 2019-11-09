@@ -44,6 +44,7 @@ namespace MallRoof.Controllers
                 string fileExtension = System.IO.Path.GetExtension(upload.FileName);
                 string fileName = ("/Files/" + PremiseId + "_" + (photosCount+1).ToString()) + fileExtension;
                 // сохраняем файл в папку Files в проекте
+                fileName = ControllerContext.HttpContext.Server.MapPath(fileName);
                 upload.SaveAs(fileName);
                 photo.Path = fileName;
                 photo.Premise = premise;

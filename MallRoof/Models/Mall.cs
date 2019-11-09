@@ -13,7 +13,7 @@ namespace MallRoof.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid MallId { get; set; }
         public string UserId { get; set; }
-        [Display(Name = "Наименование центра")]
+        [Display(Name = "Центр")]
         [Required(ErrorMessage = "Наименование обязательно")]
         public string Name { get; set; }
         [Display(Name = "Адрес")]

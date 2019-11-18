@@ -3,7 +3,7 @@
 @model MallRoof.Models.PremisesMallListModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Помещения";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -54,9 +54,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Premises.SingleOrDefault().HasWindow)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Premises.SingleOrDefault().Description)
-        </th>
+        </th>*@
         <th>
             @*@Html.DisplayNameFor(model => model.Premises.SingleOrDefault().Price)*@
             @Html.ActionLink("Цена", "Index", new { order = ViewBag.PriceSortParam })
@@ -95,16 +95,21 @@
         <td>
             @Html.DisplayFor(modelItem => item.HasWindow)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.Description)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.Price)
         </td>
+
         <td>
-            @Html.ActionLink("Изменить", "Edit", new { id = item.PremiseId }) |
-            @Html.ActionLink("Детали", "Details", new { id = item.PremiseId }) |
-            @Html.ActionLink("Удалить", "Delete", new { id = item.PremiseId })
+            @if (ViewBag.User != null)
+            {
+                @Html.ActionLink("Изменить |", "Edit", new { id = item.PremiseId });
+                @Html.ActionLink(" Детали |", "Details", new { id = item.PremiseId });
+                @Html.ActionLink(" Удалить", "Delete", new { id = item.PremiseId });
+            }
+
         </td>
     </tr>
     }

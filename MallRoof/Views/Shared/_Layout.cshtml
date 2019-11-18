@@ -26,12 +26,30 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @*<li>@Html.ActionLink("Home", "Index", "Home")</li>
-                <li>@Html.ActionLink("About", "About", "Home")</li>
-                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
-                    <li>@Html.ActionLink("Центры", "Index", "Malls")</li>
-                    <li>@Html.ActionLink("Помещения", "Index", "Premises")</li>
-                    <li>@Html.ActionLink("Пользователи", "Index", "Users")</li>
-                    <li>@Html.ActionLink("Роли", "RoleIndex", "Users")</li>
+        <li>@Html.ActionLink("About", "About", "Home")</li>
+        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+
+                    
+
+                    @if (User.IsInRole("Admin"))
+                    {                        
+                        <li>@Html.ActionLink("Роли", "RoleIndex", "Users")</li>
+                        <li>@Html.ActionLink("Пользователи", "Index", "Users")</li>
+                    }
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Центры", "Index", "Malls")</li>
+                        <li>@Html.ActionLink("Помещения", "Index", "Premises")</li>
+                    }
+
+                    @if (User.IsInRole("Landlord"))
+                    {
+                        <li>@Html.ActionLink("Центры", "IndexMall", "Malls")</li>
+                        <li>@Html.ActionLink("Помещения", "Index", "Premises")</li>
+                    }
+
+
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

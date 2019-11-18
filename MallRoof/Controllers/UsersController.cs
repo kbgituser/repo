@@ -91,6 +91,11 @@ namespace MallRoof.Controllers
                 //var result = userManager.Create(user, password);
                 user.UserName = user.Email;
                 var result = this.UserManager.Create(user, password);
+                
+
+                //var adminRole = db.Roles.Where(r => r.Name == "Admin").FirstOrDefault();
+                var enteredUser =  UserManager.FindByEmail(user.Email);
+                UserManager.AddToRole(enteredUser.Id.ToString(), "Landlord");
 
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -154,6 +159,14 @@ namespace MallRoof.Controllers
             }
         }
 
+        public void AddRoleToUser2(Guid UserId, Guid RoleId)
+        {
+            User user = UserManager.FindById(UserId.ToString());
+            IdentityRole role = RoleManager.FindById(RoleId.ToString());
+            var result = UserManager.AddToRole(UserId.ToString(), role.Name);
+        }
+
+
         public ActionResult DeleteRoleFromUser(Guid UserId, Guid RoleId)
         {
             User user = UserManager.FindById(UserId.ToString());
@@ -176,11 +189,20 @@ namespace MallRoof.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName,FirstName,SurName,Phone")] User user)
+        public ActionResult Edit(
+            //[Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName,FirstName,SurName,Phone")]
+            [Bind(Include = "Id,Email,FirstName,SurName,Phone")]
+        User user)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
+                user.UserName = user.Email;
+                var selectedUser = this.UserManager.FindById(user.Id);
+                selectedUser.FirstName = user.FirstName;
+                selectedUser.SurName = user.SurName;
+                selectedUser.Phone = user.Phone;
+                
+                db.Entry(selectedUser).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

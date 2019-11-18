@@ -22,6 +22,5 @@ namespace MallRoof.Models
         public bool IsPhotoUploaded(string path) {            
             return File.Exists(path + @"\" + Path);
         }
-
     }
 }

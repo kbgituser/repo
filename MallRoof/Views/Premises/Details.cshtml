@@ -1,12 +1,10 @@
 ﻿@model MallRoof.Models.Premise
-
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
-
+<h2>Детали</h2>
 <div>
     <h4>Premise</h4>
     <hr />
@@ -77,7 +75,17 @@
 
     </dl>
 </div>
+@*<div>
+    @foreach (var photo in Model.Photos)
+    {
+        <div class="col-sm-2">
+            <img src="/@photo.Path" class="media-object" style="width:60px" />
+        </div>
+    }
+</div>*@
+@RenderPage("~/Views/Shared/PhotosView.cshtml")
+<img src="~/Files/1.jpg" />
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.PremiseId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.PremiseId }) |*@
+    @Html.ActionLink("Назад к списку", "Index")
 </p>

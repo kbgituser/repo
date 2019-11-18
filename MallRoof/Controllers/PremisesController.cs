@@ -51,6 +51,7 @@ namespace MallRoof.Controllers
             if (user != null)
             {
                 ViewBag.Malls = user.Malls;
+                ViewBag.User = user;
             }
             PremisesMallListModel premisesMallListModel = new PremisesMallListModel();
 
@@ -108,13 +109,88 @@ namespace MallRoof.Controllers
             ViewBag.AreaSortParam = order == "area" ? "area_desc" : "area";
             premisesMallListModel.Malls = db.Malls.ToList();
             premisesMallListModel.Premises = premises.ToList();
+
+            if (user != null)
+            {
+                return View("IndexLandlord", premisesMallListModel);
+            }
+            return View(premisesMallListModel);
+
+
+            //return View(db.Premises.ToList());
+        }
+
+        // index only for landlords
+        public ActionResult IndexLandlord(string mallId, string price, string area, string haswindow, string priceorder, string order)
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            if (user != null)
+            {
+                ViewBag.Malls = user.Malls;
+                ViewBag.User = user;
+            }
+            PremisesMallListModel premisesMallListModel = new PremisesMallListModel();
+
+            var premises = db.Premises.AsQueryable();
+            int priceint;
+            if (Int32.TryParse(price, out priceint))
+            {
+                premises = premises.Where(p => p.Price <= priceint);
+            }
+
+
+            Guid mallIdg;
+            if (!string.IsNullOrEmpty(mallId) && Guid.TryParse(mallId, out mallIdg))
+            {
+                premises = premises.Where(p => p.Mall.MallId == mallIdg);
+            }
+
+            int areaint;
+            if (Int32.TryParse(area, out areaint))
+            {
+                premises = premises.Where(p => p.Area <= areaint);
+            }
+
+            if (!string.IsNullOrEmpty(haswindow))
+            {
+                var haswindowb = bool.Parse(haswindow);
+                if (haswindowb)
+                {
+                    premises = premises.Where(p => p.HasWindow == haswindowb);
+                }
+
+            }
+
+            switch (order)
+            {
+                case "price":
+                    premises = premises.OrderBy(s => s.Price);
+                    break;
+                case "price_desc":
+                    premises = premises.OrderByDescending(s => s.Price);
+                    break;
+                case "area":
+                    premises = premises.OrderBy(s => s.Area);
+                    break;
+                case "area_desc":
+                    premises = premises.OrderByDescending(s => s.Area);
+                    break;
+                default:
+                    premises = premises.OrderBy(s => s.Price);
+                    break;
+            }
+
+
+            ViewBag.PriceSortParam = order == "price" ? "price_desc" : "price";
+            ViewBag.AreaSortParam = order == "area" ? "area_desc" : "area";
+            premisesMallListModel.Malls = db.Malls.ToList();
+            premisesMallListModel.Premises = premises.ToList();
             return View(premisesMallListModel);
             //return View(db.Premises.ToList());
         }
-           
 
-    // GET: Premises/Details/5
-    public ActionResult Details(Guid? id)
+        // GET: Premises/Details/5
+        public ActionResult Details(Guid? id)
         {
             if (id == null)
             {

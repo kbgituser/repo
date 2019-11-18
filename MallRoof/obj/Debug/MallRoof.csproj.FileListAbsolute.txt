@@ -119,3 +119,4 @@ C:\Users\User\source\repos\MallRoof\MallRoof\bin\SendGrid.dll
 C:\Users\User\source\repos\MallRoof\MallRoof\bin\SendGrid.pdb
 C:\Users\User\source\repos\MallRoof\MallRoof\bin\SendGrid.xml
 C:\Users\User\source\repos\MallRoof\MallRoof\bin\ru\Microsoft.AspNet.Identity.Core.resources.dll
+C:\Users\User\source\repos\MallRoof\MallRoof\obj\Debug\MallRoof.Migrations.view.resources

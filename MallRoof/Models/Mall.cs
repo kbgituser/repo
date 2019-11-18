@@ -26,5 +26,7 @@ namespace MallRoof.Models
         public int NumberOfFloors { get; set; }
         [Display(Name = "Номер телефона")]
         public string PhoneNumber { get; set; }
+        [Display(Name = "Фотографии")]
+        public virtual ICollection<MallPhoto> MallPhotos { get; set; }
     }
 }

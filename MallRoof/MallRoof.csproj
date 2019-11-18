@@ -260,12 +260,17 @@
     <Compile Include="Migrations\201910110634032_test.Designer.cs">
       <DependentUpon>201910110634032_test.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911181308425_view.cs" />
+    <Compile Include="Migrations\201911181308425_view.Designer.cs">
+      <DependentUpon>201911181308425_view.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
     <Compile Include="Models\Extensions.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Mall.cs" />
+    <Compile Include="Models\MallPhoto.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\Premise.cs" />
@@ -288,8 +293,9 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\SomeeFtp.pubxml" />
+    <None Include="Properties\PublishProfiles\zipProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -372,6 +378,8 @@
     <Content Include="Views\Account\DisplayEmail.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
     <Content Include="Views\Account\ResendEmail.cshtml" />
+    <Content Include="Views\Premises\IndexLandlord.cshtml" />
+    <Content Include="Views\Shared\PhotosView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -423,6 +431,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910110634032_test.resx">
       <DependentUpon>201910110634032_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911181308425_view.resx">
+      <DependentUpon>201911181308425_view.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

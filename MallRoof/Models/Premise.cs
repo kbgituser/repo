@@ -35,6 +35,7 @@ namespace MallRoof.Models
         public double Price { get; set; }
         //        public bool Free { get; set; }
         public virtual ICollection<PremiseCalendar> PremiseCalendars { get; set; }
+        [Display(Name = "Фотографии")]
         public virtual ICollection<Photo> Photos { get; set; }
         [Display(Name = "Видимость")]
         public bool IsSeen { get; set; }

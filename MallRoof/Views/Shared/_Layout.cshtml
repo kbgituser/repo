@@ -29,10 +29,10 @@
         <li>@Html.ActionLink("About", "About", "Home")</li>
         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
 
-                    
+
 
                     @if (User.IsInRole("Admin"))
-                    {                        
+                    {
                         <li>@Html.ActionLink("Роли", "RoleIndex", "Users")</li>
                         <li>@Html.ActionLink("Пользователи", "Index", "Users")</li>
                     }
@@ -44,8 +44,10 @@
 
                     @if (User.IsInRole("Landlord"))
                     {
-                        <li>@Html.ActionLink("Центры", "IndexMall", "Malls")</li>
+                        <li>@Html.ActionLink("Центры", "Index", "Malls")</li>
+                        <li>@Html.ActionLink("Мои центры", "Index", "Malls", new { getMine = true }, null)</li>
                         <li>@Html.ActionLink("Помещения", "Index", "Premises")</li>
+                        <li>@Html.ActionLink("Мои помещения", "Index", "Premises", new { getMine = true }, null)</li>                        
                     }
 
 

@@ -14,11 +14,18 @@ namespace MallRoof
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            //routes.MapRoute(
+            //    name: "Default",
+            //    url: "{controller}/{action}/{id}",
+            //    //defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            //    defaults: new { controller = "Premises", action = "Index", id = UrlParameter.Optional }
+
             routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
+                "Default",
+                "{controller}/{action}/{id}",
                 //defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-                defaults: new { controller = "Premises", action = "Index", id = UrlParameter.Optional }
+                new { controller = "Premises", action = "Index", id = UrlParameter.Optional }
+
             );
         }
 

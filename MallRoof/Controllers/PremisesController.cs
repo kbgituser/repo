@@ -45,7 +45,7 @@ namespace MallRoof.Controllers
         }
 
         // GET: Premises
-        public ActionResult Index(string mallId, string price, string area, string haswindow, string priceorder, string order)
+        public ActionResult Index(string mallId, string price, string area, string haswindow, string priceorder, string order, string getMine)
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
             if (user != null)
@@ -110,8 +110,9 @@ namespace MallRoof.Controllers
             premisesMallListModel.Malls = db.Malls.ToList();
             premisesMallListModel.Premises = premises.ToList();
 
-            if (user != null)
+            if (user != null && !string.IsNullOrEmpty(getMine) && bool.TrueString == getMine)
             {
+                premises.Where(p => p.Mall.User == user);
                 return View("IndexLandlord", premisesMallListModel);
             }
             return View(premisesMallListModel);

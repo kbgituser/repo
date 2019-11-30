@@ -43,10 +43,20 @@ namespace MallRoof.Controllers
 
         // GET: Malls
         [Authorize]
-        public ActionResult Index()
+        public ActionResult Index(string getMine)
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
-            return View(db.Malls.Where(m=>m.UserId == user.Id).ToList());
+            var malls = db.Malls.AsQueryable();
+            if ( user!=null &&  !string.IsNullOrEmpty(getMine) &&  bool.TrueString == getMine)
+            {
+                malls = malls.Where(m => m.UserId == user.Id);
+                return View(malls.ToList());
+            }
+            else
+            {
+                return View(malls.ToList());
+            }
+            
         }
 
         

@@ -84,8 +84,6 @@ namespace MallRoof.Controllers
             
             if (ModelState.IsValid)
             {
-
-
                 //var userStore = new UserStore<User>(db);
                 //var userManager  = new ApplicationUserManager(userStore);
                 //var result = userManager.Create(user, password);

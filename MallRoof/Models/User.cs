@@ -25,7 +25,5 @@ namespace MallRoof.Models
 
         [Display(Name = "Центры")]
         public virtual ICollection<Mall> Malls { get; set; }
-
-
     }
 }

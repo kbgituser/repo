@@ -46,7 +46,7 @@ namespace MallRoof.Controllers
 
         // GET: Premises
         public ActionResult Index(string mallId, string price, string area, string haswindow, string priceorder, string order, string getMine)
-        {
+        {            
             var user = UserManager.FindById(User.Identity.GetUserId());
             if (user != null)
             {
@@ -60,6 +60,7 @@ namespace MallRoof.Controllers
             if (Int32.TryParse(price, out priceint))
             {
                 premises = premises.Where(p => p.Price <= priceint);
+                premisesMallListModel.Price = price;
             }
             
 
@@ -67,12 +68,14 @@ namespace MallRoof.Controllers
             if (!string.IsNullOrEmpty(mallId) && Guid.TryParse(mallId, out mallIdg))
             {
                 premises = premises.Where(p => p.Mall.MallId == mallIdg);
+                premisesMallListModel.MallId = mallId;
             }
 
             int areaint;
             if (Int32.TryParse(area, out areaint))
             {
                 premises = premises.Where(p => p.Area <= areaint);
+                premisesMallListModel.Area = area;
             }
 
             if (!string.IsNullOrEmpty(haswindow))
@@ -81,6 +84,7 @@ namespace MallRoof.Controllers
                 if (haswindowb)
                 {
                     premises = premises.Where(p => p.HasWindow == haswindowb);
+                    premisesMallListModel.Haswindow = haswindowb.ToString();
                 }
                 
             }
@@ -112,9 +116,14 @@ namespace MallRoof.Controllers
 
             if (user != null && !string.IsNullOrEmpty(getMine) && bool.TrueString == getMine)
             {
-                premises.Where(p => p.Mall.User == user);
+                //malls = malls.Where(m => m.UserId == user.Id);
+                premises = premises.Where(p => p.Mall.UserId == user.Id);
+                var premises2 = premises.ToList();
+
+                premisesMallListModel.Premises = premises.ToList();
                 return View("IndexLandlord", premisesMallListModel);
             }
+            premisesMallListModel.Premises = premises.ToList();
             return View(premisesMallListModel);
 
 

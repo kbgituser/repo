@@ -1,0 +1,8 @@
+﻿<div>
+    @foreach (var photo in Model.Photos)
+    {
+        <div class="col-sm-6">
+            <img src="/@photo.Path" class="media-object" style="width:120px" />
+        </div>
+    }
+</div>

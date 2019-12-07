@@ -3,7 +3,7 @@
 @model MallRoof.Models.PremisesMallListModel
 
 @{
-    ViewBag.Title = "Помещения";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -16,7 +16,7 @@
     <br />
     @Html.TextBox("Price", Request.Params["price"], new { placeholder = "Цена", @class = "allownumericwithoutdecimal" })
     @Html.TextBox("Area", Request.Params["area"], new { placeholder = "Площадь", @class = "allownumericwithoutdecimal" })
-    @Html.CheckBox("HasWindow", Request.Params["HasWindow"]) @Html.LabelFor(f => f.Haswindow, new { text = "Окно"})
+    @Html.CheckBox("HasWindow", Request.Params["HasWindow"])
     <input type="submit" value="Поиск" class="btn btn-default" />
 
 }
@@ -35,48 +35,31 @@
 <table class="table">
     <tr>
         <th>
-            Фотография
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Premises.SingleOrDefault().Mall.Name)
         </th>
-        @*<th>
+        <th>
             @Html.DisplayNameFor(model => model.Premises.SingleOrDefault().Number)
-        </th>*@
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Premises.SingleOrDefault().Floor)
         </th>
         <th>
             @*@Html.DisplayNameFor(model => model.Premises.SingleOrDefault().Area)*@
-            @Html.ActionLink("Площадь", "Index", new { order = ViewBag.AreaSortParam
-           , mallId = Model.MallId
-           , price = Model.Price
-           , area = Model.Area
-           , haswindow = Model.Haswindow
-       })
+            @Html.ActionLink("Площадь", "Index", new { order = ViewBag.AreaSortParam })
             @Html.SortIdentifier(Request.Params["order"], "area")
         </th>
-        @*<th>
+        <th>
             @Html.DisplayNameFor(model => model.Premises.SingleOrDefault().IsLastFloor)
-        </th>*@
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Premises.SingleOrDefault().HasWindow)
         </th>
-        @*<th>
+        <th>
             @Html.DisplayNameFor(model => model.Premises.SingleOrDefault().Description)
-        </th>*@
+        </th>
         <th>
             @*@Html.DisplayNameFor(model => model.Premises.SingleOrDefault().Price)*@
-            @Html.ActionLink("Цена", "Index", new { order = ViewBag.PriceSortParam
-           ,
-           mallId = Model.MallId
-           ,
-           price = Model.Price
-           ,
-           area = Model.Area
-           ,
-           haswindow = Model.Haswindow
-       })
+            @Html.ActionLink("Цена", "Index", new { order = ViewBag.PriceSortParam })
             @Html.SortIdentifier(Request.Params["order"], "price")
             @*@if (ViewBag.PriceSortParam.Contains("desc"))
             {
@@ -95,34 +78,31 @@
     {
     <tr>
         <td>
-            <img src="@item.FirstPhoto()"/>            
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Mall.Name)
         </td>
-        @*<td>
+        <td>
             @Html.DisplayFor(modelItem => item.Number)
-        </td>*@
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Floor)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Area)
         </td>
-        @*<td>
+        <td>
             @Html.DisplayFor(modelItem => item.IsLastFloor)
-        </td>*@
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.HasWindow)
         </td>
-        @*<td>
+        <td>
             @Html.DisplayFor(modelItem => item.Description)
-        </td>*@
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Price)
         </td>
 
-        <td>            
+        <td>
             @if (ViewBag.User != null)
             {
                 @Html.ActionLink("Изменить |", "Edit", new { id = item.PremiseId });

@@ -46,5 +46,13 @@ namespace MallRoof.Models
             return result;
         }
 
+        public string FirstPhoto()
+        {
+            if (Photos.Any())
+            {
+                return Photos.FirstOrDefault().Path;
+            }
+            return "";
+        }
     }
 }

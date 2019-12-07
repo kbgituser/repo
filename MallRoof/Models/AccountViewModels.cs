@@ -91,11 +91,11 @@ namespace MallRoof.Models
         [Required]
         [StringLength(100, ErrorMessage = "{0} должен содержать минимум {2} символов.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Пароль")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
+        [Display(Name = "Подтвердите пароль")]
         [Compare("Password", ErrorMessage = "Пароль и подтверждение пароля не соответсвуют друг другу.")]
         public string ConfirmPassword { get; set; }
 

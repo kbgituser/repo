@@ -1,19 +1,18 @@
 ﻿@model MallRoof.Models.Premise
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Изменение";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>Изменение</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Premise</h4>
+    <div class="form-horizontal">        
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.PremiseId)
@@ -99,7 +98,7 @@
 <h3>Выберите файл для загрузки</h3>
 @using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <input type="file" name="upload" /><br>
+    <input type="file" name="выбрать фото" /><br>
     @*@Html.HiddenFor(model => model.PremiseId)*@
     <input type="hidden" name="PremiseId" value=@Model.PremiseId><br>
     <br />

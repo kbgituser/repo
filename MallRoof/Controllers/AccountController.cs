@@ -255,6 +255,7 @@ namespace MallRoof.Controllers
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindByNameAsync(model.Email);
+                var confirmed = await UserManager.IsEmailConfirmedAsync(user.Id);
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
@@ -265,7 +266,7 @@ namespace MallRoof.Controllers
                 // Send an email with this link
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                await UserManager.SendEmailAsync(user.Id, "Cброс пароля", "Пожалуйста сбростье пароль нажав ссылку <a href=\"" + callbackUrl + "\">here</a>");
+                await UserManager.SendEmailAsync(user.Id, "Cброс пароля", "Пожалуйста сбростье пароль нажав ссылку <a href=\"" + callbackUrl + "\">здесь</a>");
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
@@ -510,7 +511,7 @@ namespace MallRoof.Controllers
             string code = await UserManager.GenerateEmailConfirmationTokenAsync(userID);
             var callbackUrl = Url.Action("ConfirmEmail", "Account",
                new { userId = userID, code = code }, protocol: Request.Url.Scheme);
-            await UserManager.SendEmailAsync(userID, subject, "Подтвердите учетную запись нажав ссылку <a href=\"" + callbackUrl + "\">here</a>");
+            await UserManager.SendEmailAsync(userID, subject, "Подтвердите учетную запись нажав ссылку <a href=\"" + callbackUrl + "\">здесь</a>");
             return callbackUrl;
         }
 

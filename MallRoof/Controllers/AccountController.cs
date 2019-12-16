@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using MallRoof.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace MallRoof.Controllers
 {
@@ -17,6 +18,7 @@ namespace MallRoof.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManager;
 
         public AccountController()
         {
@@ -51,6 +53,12 @@ namespace MallRoof.Controllers
                 _userManager = value;
             }
         }
+        
+        public ApplicationRoleManager RoleManager
+        {
+            get { return _roleManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>(); }
+            private set { _roleManager = value; }
+        }
 
         //
         // GET: /Account/Login
@@ -76,15 +84,15 @@ namespace MallRoof.Controllers
             // Require the user to have a confirmed email before they can log on.
             var user = await UserManager.FindByNameAsync(model.Email);
             //расскоментировать чтобы подтверждение работало
-            //if (user != null)
-            //{
-            //    if (!await UserManager.IsEmailConfirmedAsync(user.Id))
-            //    {
-            //        string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account-Resend");
-            //        ViewBag.errorMessage = "Ваш Email должен быть подтержден";
-            //        return View("Error");
-            //    }
-            //}
+            if (user != null)
+            {
+                if (!await UserManager.IsEmailConfirmedAsync(user.Id))
+                {
+                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account-Resend");
+                    ViewBag.errorMessage = "Ваш Email должен быть подтержден";
+                    return View("Error");
+                }
+            }
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
@@ -172,7 +180,10 @@ namespace MallRoof.Controllers
                 {
                     //  Comment the following line to prevent log in until the user is confirmed.
                     //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-
+                    
+                    IdentityRole role = RoleManager.FindByName("Landlord");
+                    UserManager.AddToRole(user.Id.ToString(), role.Name);
+                    
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -191,6 +202,11 @@ namespace MallRoof.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
+        public ActionResult Error()
+        {
+            return View("Error");
+        }
 
         [AllowAnonymous]
         public ActionResult ResendEmail()
@@ -446,7 +462,7 @@ namespace MallRoof.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Premises");
         }
 
         //
@@ -503,7 +519,7 @@ namespace MallRoof.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Premises");
         }
 
         private async Task<string> SendEmailConfirmationTokenAsync(string userID, string subject)

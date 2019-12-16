@@ -17,7 +17,7 @@ namespace MallRoof.Models
         public string Path { get; set; }
         public Guid PremiseId { get; set; }
         [Display(Name = "Помещение")]
-        public Premise Premise { get; set; }
+        public virtual Premise Premise { get; set; }
         [Display(Name = "Загружено")]
         public bool IsPhotoUploaded(string path) {            
             return File.Exists(path + @"\" + Path);

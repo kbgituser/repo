@@ -12,10 +12,11 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">        
+    <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.PremiseId)
+        @Html.HiddenFor(model => model.MallId)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Number, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -89,35 +90,29 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Сохранить" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
-<h3>Выберите файл для загрузки</h3>
-@using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+<h3>Выберите фотографию для загрузки. Фотография должна быть меньше 1 МегаБайт</h3>
+@using (Html.BeginForm("Upload", "Premises", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <input type="file" name="выбрать фото" /><br>
-    @*@Html.HiddenFor(model => model.PremiseId)*@
-    <input type="hidden" name="PremiseId" value=@Model.PremiseId><br>
-    <br />
+    <input type="file" name="upload" /><br>    
+    <input type="hidden" name="PremiseId" value=@Model.PremiseId>    
     <input type="submit" value="Загрузить" />
 }
-<div>
-    @foreach (var photo in Model.Photos)
-    {
-        <div class="col-sm-2" >
-            <img src="/@photo.Path" class="media-object" style="width:60px"/>
-        </div>
-    }
-</div>
+@if (ViewBag.Error!=null)
+{
+    <p class="has-error">ViewBag.Error</p>
+}
+<br />
 
+@RenderPage("~/Views/Shared/PhotosViewWithDelete.cshtml")
 
-<img src="~/Files/1.jpg" />   
-@*<img src="//www.jquery-az.com/html/images/banana.jpg" alt="Smiley face" width="42" height="42">*@
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("К списку", "Index", new { getMine = true })
 </div>
 
 @section Scripts {

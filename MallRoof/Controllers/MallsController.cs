@@ -11,6 +11,9 @@ using MallRoof.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using PagedList.Mvc;
+using PagedList;
+using System.Configuration;
 
 namespace MallRoof.Controllers
 {
@@ -42,24 +45,28 @@ namespace MallRoof.Controllers
         }
 
         // GET: Malls
-        [Authorize]
-        public ActionResult Index(string getMine)
+        //[Authorize]
+        public ActionResult Index(string getMine, int? page)
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
-            var malls = db.Malls.AsQueryable();
+            var malls = db.Malls.OrderBy(m=>m.Name).AsQueryable();
+
+            int pageSize = 10;
+            string pSize = ConfigurationManager.AppSettings["pageSize"];
+            if (!string.IsNullOrEmpty(pSize))
+            {
+                int.TryParse(pSize, out pageSize);
+            }
+            int pageNumber = (page ?? 1);
+
             if ( user!=null &&  !string.IsNullOrEmpty(getMine) &&  bool.TrueString == getMine)
             {
                 malls = malls.Where(m => m.UserId == user.Id);
-                return View(malls.ToList());
+                return View("IndexLandlord", malls.ToPagedList(pageNumber, pageSize));
             }
-            else
-            {
-                return View(malls.ToList());
-            }
-            
+            return View(malls.ToPagedList(pageNumber, pageSize));
         }
-
-        
+                
 
         // GET: Malls/Details/5
         [Authorize]
@@ -112,11 +119,21 @@ namespace MallRoof.Controllers
         // GET: Malls/Edit/5
         public ActionResult Edit(Guid? id)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Mall mall = db.Malls.Find(id);
+
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            if (user != null && !User.IsInRole("Admin")
+                )
+            {
+                if (mall.UserId != User.Identity.GetUserId())
+                    return RedirectToAction("Index");
+            }
+
             if (mall == null)
             {
                 return HttpNotFound();
@@ -135,7 +152,7 @@ namespace MallRoof.Controllers
             {
                 db.Entry(mall).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { getMine = true });
             }
             return View(mall);
         }
@@ -160,9 +177,31 @@ namespace MallRoof.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
+            string fileName = "";
             Mall mall = db.Malls.Find(id);
-            db.Malls.Remove(mall);
-            db.SaveChanges();
+
+            try
+            {
+                foreach (var premise in mall.Premises)
+                {
+                    foreach (var photo in premise.Photos)
+                    {
+                        fileName = ControllerContext.HttpContext.Server.MapPath(photo.Path);
+                        if (System.IO.File.Exists(fileName))
+                        {
+                            System.IO.File.Delete(fileName);
+                        }
+                    }
+                }
+                db.Malls.Remove(mall);
+                db.SaveChanges();
+            }
+            catch
+            {
+            }
+            
+
+
             return RedirectToAction("Index");
         }
 

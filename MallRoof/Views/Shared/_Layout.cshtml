@@ -3,14 +3,15 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Управление помещением</title>
+    @*<title>@ViewBag.Title - Управление помещением</title>*@
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/myJs")
     @*<script src="~/Scripts/mine/MyJs.js"></script>*@
-    
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -47,11 +48,8 @@
                         <li>@Html.ActionLink("Центры", "Index", "Malls")</li>
                         <li>@Html.ActionLink("Мои центры", "Index", "Malls", new { getMine = true }, null)</li>
                         <li>@Html.ActionLink("Помещения", "Index", "Premises")</li>
-                        <li>@Html.ActionLink("Мои помещения", "Index", "Premises", new { getMine = true }, null)</li>                        
+                        <li>@Html.ActionLink("Мои помещения", "Index", "Premises", new { getMine = true }, null)</li>
                     }
-
-
-
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -62,7 +60,9 @@
                 </a>
                 <ul class="dropdown-menu" role="menu">
                     <li>@Html.ActionLink("Центры", "Index", "Malls")</li>
-                    <li>@Html.ActionLink("Помещения", "Index", "Premises")</li>
+                    <li>@Html.ActionLink("Помещения", "Index", "Premises")</li>                    
+                    <li>@Html.ActionLink("Мои центры", "Index", "Malls", new { getMine = true }, null)</li>                    
+                    <li>@Html.ActionLink("Мои помещения", "Index", "Premises", new { getMine = true }, null)</li>
                 </ul>
             </li>
         </div>

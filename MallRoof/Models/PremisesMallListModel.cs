@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using PagedList.Mvc;
+using PagedList;
 
 namespace MallRoof.Models
 {
     public class PremisesMallListModel
     {
-        public List<Premise> Premises { get; set;}
+        public PagedList.IPagedList<Premise> Premises { get; set;}
         public List<Mall> Malls { get; set; }        
         public string MallId { get; set; }
         public string Price { get; set; }

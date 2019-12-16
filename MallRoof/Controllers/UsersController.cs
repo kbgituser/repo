@@ -11,7 +11,8 @@ using MallRoof.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
-
+using PagedList.Mvc;
+using PagedList;
 namespace MallRoof.Controllers
 {
     public class UsersController : Controller

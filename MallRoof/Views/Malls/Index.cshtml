@@ -1,4 +1,5 @@
-﻿@model IEnumerable<MallRoof.Models.Mall>
+﻿@model PagedList.IPagedList<MallRoof.Models.Mall>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Центры";
@@ -8,42 +9,44 @@
 <h2>Торговые центры</h2>
 
 <p class="text-center">
-    @Html.ActionLink("Новый центр", "Create")    
+    @*@Html.ActionLink("Новый центр", "Create")*@
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Address)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Address)
         </th>
-        
+
         <th>
-            @Html.DisplayNameFor(model => model.NumberOfFloors)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().NumberOfFloors)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.NumberOfFloors)
-        </td>
-        <td>
-            @Html.ActionLink("Добавить помещение к этому центру", "Create", "Premises", new { id = item.MallId }, null) |
-            @Html.ActionLink("Изменить", "Edit", new { id = item.MallId }) |
-            @*@Html.ActionLink("Details", "Details", new { id = item.MallId }) |*@
-            @Html.ActionLink("Удалить", "Delete", new { id = item.MallId }) |
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
 
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfFloors)
+            </td>
+            <td>
+                @*@Html.ActionLink("Добавить помещение к этому центру", "Create", "Premises", new { id = item.MallId }, null) |
+                    @Html.ActionLink("Изменить", "Edit", new { id = item.MallId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.MallId }) |
+                    @Html.ActionLink("Удалить", "Delete", new { id = item.MallId }) |*@
+            </td>
+        </tr>
+    }
 </table>
+Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

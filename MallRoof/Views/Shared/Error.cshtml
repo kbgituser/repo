@@ -1,15 +1,15 @@
 ﻿@model System.Web.Mvc.HandleErrorInfo
 
 @{
-    ViewBag.Title = "Error";
+    ViewBag.Title = "Что то не так";
 }
 
 
-<h1 class="text-danger">Error.</h1>
+<h1 class="text-danger">Что то не так!</h1>
 @{
     if (String.IsNullOrEmpty(ViewBag.errorMessage))
     {
-        <h2 class="text-danger">An error occurred while processing your request.</h2>
+        <h2 class="text-danger">Что то пошло не так.</h2>
     }
     else
     {

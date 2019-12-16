@@ -35,14 +35,15 @@ namespace MallRoof.DAL
                 .WithMany(g => g.Premises)
                 .HasForeignKey(s => s.MallId);
 
-            modelBuilder.Entity<Photo>()
+            modelBuilder.Entity<Photo>()                
                 .HasRequired<Premise>(s => s.Premise)
-                .WithMany(g => g.Photos)
-                .HasForeignKey(s => s.PremiseId);
+                .WithMany(g => g.Photos)                
+                .HasForeignKey(s => s.PremiseId)                
+                ;
 
             modelBuilder.Entity<Mall>()
-                .HasOptional<User>(s => s.User)
-                //.HasRequired<User>(s => s.User)
+                //.HasOptional<User>(s => s.User)
+                .HasRequired<User>(s => s.User)
                 .WithMany(g => g.Malls)
                 .HasForeignKey(s => s.UserId);
         }

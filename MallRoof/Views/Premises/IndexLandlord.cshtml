@@ -29,6 +29,9 @@
             Фотография
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Premises.SingleOrDefault().Mall.City)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Premises.SingleOrDefault().Mall.Name)
         </th>
         <th>
@@ -48,6 +51,8 @@
            area = Request.Params["Area"]
             ,
            haswindow = Request.Params["HasWindow"]
+           ,
+           cityId = Request.Params["CityId"]
        })
             @Html.SortIdentifier(Request.Params["order"], "area")
         </th>
@@ -69,6 +74,8 @@
            area = Request.Params["Area"]
             ,
            haswindow = Request.Params["HasWindow"]
+           ,
+           cityId = Request.Params["CityId"]
        })
             @Html.SortIdentifier(Request.Params["order"], "price")
             @*@if (ViewBag.PriceSortParam.Contains("desc"))
@@ -89,6 +96,9 @@
         <tr class="text-left">
             <td align="center" style="width:12%">
                 <img src="@item.FirstPhoto()" class="img-rounded img-thumbnail" alt="...Нет изображения..." />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mall.City.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Mall.Name)

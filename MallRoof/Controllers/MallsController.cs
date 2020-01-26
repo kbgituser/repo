@@ -14,6 +14,7 @@ using Microsoft.AspNet.Identity.Owin;
 using PagedList.Mvc;
 using PagedList;
 using System.Configuration;
+using System.IO;
 
 namespace MallRoof.Controllers
 {
@@ -46,7 +47,7 @@ namespace MallRoof.Controllers
 
         // GET: Malls
         //[Authorize]
-        public ActionResult Index(string getMine, int? page)
+        public ActionResult Index(string getMine, int? page, string forAdmin)
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
             var malls = db.Malls.OrderBy(m=>m.Name).AsQueryable();
@@ -64,9 +65,14 @@ namespace MallRoof.Controllers
                 malls = malls.Where(m => m.UserId == user.Id);
                 return View("IndexLandlord", malls.ToPagedList(pageNumber, pageSize));
             }
+
+            if (User.IsInRole("Admin"))
+            {                
+                return View("IndexLandlord", malls.ToPagedList(pageNumber, pageSize));
+            }
+
             return View(malls.ToPagedList(pageNumber, pageSize));
         }
-                
 
         // GET: Malls/Details/5
         [Authorize]
@@ -87,6 +93,7 @@ namespace MallRoof.Controllers
         // GET: Malls/Create
         public ActionResult Create()
         {
+            ViewBag.Cities =  db.Cities.OrderBy(c=>c.Name);
             return View();
         }
         
@@ -96,7 +103,8 @@ namespace MallRoof.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MallId,Name,Address,UserId,NumberOfFloors")] Mall mall)
+        public ActionResult Create([Bind(Include = "MallId,Name,Address,UserId,NumberOfFloors,CityId," +
+            "ParkingExists,ParkingInsideExists,ParkingPayment,ParkingInsidePayment")] Mall mall)
         {
             if (ModelState.IsValid)
             {
@@ -110,7 +118,7 @@ namespace MallRoof.Controllers
 
                 db.Malls.Add(mall);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Malls");
             }
 
             return View(mall);
@@ -125,13 +133,13 @@ namespace MallRoof.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Mall mall = db.Malls.Find(id);
-
+            ViewBag.Cities = db.Cities.OrderBy(c => c.Name);
             var user = UserManager.FindById(User.Identity.GetUserId());
             if (user != null && !User.IsInRole("Admin")
                 )
             {
                 if (mall.UserId != User.Identity.GetUserId())
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Malls");
             }
 
             if (mall == null)
@@ -146,11 +154,24 @@ namespace MallRoof.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MallId,Name,Address,UserId,NumberOfFloors")] Mall mall)
+        public ActionResult Edit([Bind(Include = "MallId,Name,Address,UserId,NumberOfFloors,ParkingExists,ParkingInsideExists,ParkingPayment,ParkingInsidePayment,CityId")] Mall mall)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(mall).State = EntityState.Modified;
+                //db.Entry(mall).State = EntityState.Detached;
+                var mallinDB = db.Malls.Find(mall.MallId);
+                //mall.UserId = mallinDB.UserId;
+                
+                mallinDB.Name = mall.Name;
+                mallinDB.Address = mall.Address;
+                mallinDB.NumberOfFloors = mall.NumberOfFloors;
+                mallinDB.ParkingExists = mall.ParkingExists;
+                mallinDB.ParkingInsideExists= mall.ParkingInsideExists;
+                mallinDB.ParkingPayment = mall.ParkingPayment;
+                mallinDB.ParkingInsidePayment = mall.ParkingInsidePayment;
+                mallinDB.CityId = mall.CityId;
+
+                db.Entry(mallinDB).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index", new { getMine = true });
             }
@@ -202,7 +223,65 @@ namespace MallRoof.Controllers
             
 
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Malls");
+        }
+
+        [HttpPost]
+        public ActionResult Upload(HttpPostedFileBase upload, string MallId)
+        {
+            if (upload != null)
+            {
+                bool isValid = false;
+                // Settings.  
+                int allowedFileSize = Int32.Parse(ConfigurationManager.AppSettings["maxAllowedContentLength"]);
+                int allowedPhotoCount = Int32.Parse(ConfigurationManager.AppSettings["mallPhotoCount"]);
+
+                // Initialization.  
+                var fileSize = upload.ContentLength;
+
+                // Settings.  
+                isValid = fileSize <= allowedFileSize;
+
+                if (isValid)
+                {
+                    string folderName = "MallImages";                    
+                    string path = ControllerContext.HttpContext.Server.MapPath("~/" + folderName);
+                    //string path = Server.MapPath("~/"+ folderName);
+                    
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    Guid mallId = Guid.Parse(MallId);
+                    var mall = db.Malls.SingleOrDefault(p => p.MallId == mallId);
+                    int photosCount = mall.MallPhotos.Count;
+                    if (photosCount >= allowedPhotoCount)
+                    {
+                        ViewBag.Error = "Количество фотографий должно быть не более " + allowedPhotoCount.ToString();
+                        return RedirectToAction("Edit", "Malls", new { id = MallId });
+                    }
+                    MallPhoto photo = new MallPhoto();
+                    //context.Photos.Add();
+                    // получаем имя файла
+                    string fileExtension = System.IO.Path.GetExtension(upload.FileName);
+                    string fileName = ("/"+folderName+"/" + MallId + "_" + (photosCount + 1).ToString()) + fileExtension;
+                    // сохраняем файл в папку Files в проекте
+                    //fileName = ControllerContext.HttpContext.Server.MapPath(fileName);
+                    upload.SaveAs(ControllerContext.HttpContext.Server.MapPath(fileName));
+                    fileName = fileName.Replace("/", "\\");
+                    photo.Path = fileName;
+                    photo.Mall = mall;
+                    db.MallPhotos.Add(photo);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    var fsinMegaByte = (allowedFileSize / 1024f) / 1024f;
+                    ViewBag.Error = "Загружаемая фотография должна быть меньше " + fsinMegaByte.ToString() + "Мб";
+                    return View("Error");
+                }
+            }
+            return RedirectToAction("Edit", "Malls", new { id = MallId});
         }
 
         protected override void Dispose(bool disposing)

@@ -31,16 +31,22 @@ namespace MallRoof
             //return Task.FromResult(0);
 
             SmtpClient client = new SmtpClient();
-            client.Port = 587;
-            client.Host = "smtp.yandex.ru";
+
+            //ConfigurationManager.AppSettings["mailAccount"]
+
+            client.Port = Int32.Parse(ConfigurationManager.AppSettings["mailPort"]);
+            client.Host = ConfigurationManager.AppSettings["mailHost"];
             client.EnableSsl = true;
             //client.Timeout = 10000;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;
-            client.Credentials = new NetworkCredential("kai124@yandex.ru", "sharik_24");
+            client.Credentials = new NetworkCredential(
+                ConfigurationManager.AppSettings["mailAccount"]
+                , ConfigurationManager.AppSettings["mailPassword"]
+                );
 
-            MailMessage mailMessage = new MailMessage("kai124@yandex.ru", message.Destination);
-            mailMessage.From = new MailAddress("kai124@yandex.ru", "Kai Kai");
+            MailMessage mailMessage = new MailMessage(ConfigurationManager.AppSettings["mailAccount"], message.Destination);
+            mailMessage.From = new MailAddress(ConfigurationManager.AppSettings["mailAccount"], "Комманда Kenseler");
             mailMessage.Subject = message.Subject;
             mailMessage.IsBodyHtml = true;
             mailMessage.Body = message.Body;
@@ -203,13 +209,20 @@ public class SmsService : IIdentityMessageService
             };
 
             // Configure validation logic for passwords
+            // pass validation
             manager.PasswordValidator = new PasswordValidator
             {
-                RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
-                RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true,
+                //RequiredLength = 6,
+                //RequireNonLetterOrDigit = true,
+                //RequireDigit = true,
+                //RequireLowercase = true,
+                //RequireUppercase = true,
+
+                RequiredLength = 0,
+                RequireNonLetterOrDigit = false,
+                RequireDigit = false,
+                RequireLowercase = false,
+                RequireUppercase = false,
             };
 
             // Configure user lockout defaults

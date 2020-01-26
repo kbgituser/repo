@@ -97,7 +97,7 @@ namespace MallRoof.Controllers
                 UserManager.AddToRole(enteredUser.Id.ToString(), "Landlord");
 
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Users");
             }
 
             return View(user);
@@ -190,7 +190,7 @@ namespace MallRoof.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(
             //[Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName,FirstName,SurName,Phone")]
-            [Bind(Include = "Id,Email,FirstName,SurName,Phone")]
+            [Bind(Include = "Id,Email,FirstName,SurName,Phone,EmailConfirmed")]
         User user)
         {
             if (ModelState.IsValid)
@@ -200,10 +200,11 @@ namespace MallRoof.Controllers
                 selectedUser.FirstName = user.FirstName;
                 selectedUser.SurName = user.SurName;
                 selectedUser.Phone = user.Phone;
+                selectedUser.EmailConfirmed = user.EmailConfirmed;
                 
                 db.Entry(selectedUser).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Users");
             }
             return View(user);
         }
@@ -231,7 +232,7 @@ namespace MallRoof.Controllers
             User user = db.IdentityUsers.Find(id);
             db.Users.Remove(user);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Users");
         }
 
         protected override void Dispose(bool disposing)
@@ -318,7 +319,6 @@ namespace MallRoof.Controllers
             db.SaveChanges();
             return RedirectToAction("RoleIndex");
         }
-
     }
 
     

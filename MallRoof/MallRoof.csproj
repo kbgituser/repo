@@ -211,6 +211,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CitiesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MallsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -274,9 +275,22 @@
     <Compile Include="Migrations\201912140932179_mall_has_required_user_____Photo_premises.Designer.cs">
       <DependentUpon>201912140932179_mall_has_required_user_____Photo_premises.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001030954580_mallChange.cs" />
+    <Compile Include="Migrations\202001030954580_mallChange.Designer.cs">
+      <DependentUpon>202001030954580_mallChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001040726276_cities.cs" />
+    <Compile Include="Migrations\202001040726276_cities.Designer.cs">
+      <DependentUpon>202001040726276_cities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001111011347_cities_in_mall_are_mandatory.cs" />
+    <Compile Include="Migrations\202001111011347_cities_in_mall_are_mandatory.Designer.cs">
+      <DependentUpon>202001111011347_cities_in_mall_are_mandatory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
+    <Compile Include="Models\City.cs" />
     <Compile Include="Models\Extensions.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Mall.cs" />
@@ -302,6 +316,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\login.png" />
+    <Content Include="Images\mycenters.png" />
+    <Content Include="Images\new center.png" />
+    <Content Include="Images\registration.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
@@ -331,7 +349,9 @@
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -395,10 +415,17 @@
     <Content Include="Views\Malls\IndexLandlord.cshtml" />
     <Content Include="Views\Shared\PremiseSearchForm.cshtml" />
     <Content Include="Views\Shared\PhotosViewWithDelete.cshtml" />
+    <Content Include="Views\Cities\Create.cshtml" />
+    <Content Include="Views\Cities\Delete.cshtml" />
+    <Content Include="Views\Cities\Details.cshtml" />
+    <Content Include="Views\Cities\Edit.cshtml" />
+    <Content Include="Views\Cities\Index.cshtml" />
+    <Content Include="Views\Home\Instruction.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Files\" />
+    <Folder Include="MallImages\" />
+    <Folder Include="PremiseImages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -452,6 +479,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912140932179_mall_has_required_user_____Photo_premises.resx">
       <DependentUpon>201912140932179_mall_has_required_user_____Photo_premises.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001030954580_mallChange.resx">
+      <DependentUpon>202001030954580_mallChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001040726276_cities.resx">
+      <DependentUpon>202001040726276_cities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001111011347_cities_in_mall_are_mandatory.resx">
+      <DependentUpon>202001111011347_cities_in_mall_are_mandatory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

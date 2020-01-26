@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace MallRoof.Controllers
 {
-    [RequireHttps]
+    
     public class HomeController : Controller
     {
         MallContext context = new MallContext();
@@ -20,15 +20,23 @@ namespace MallRoof.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
+            string content = "Проект является бесплатной площадкой для бизнес и торговых центров, с помощью которой вы можете:"
+                + "вести реестр, учет своих помещений"
+                + "выставлять на показ / скрывать информацию о помещении для соискателей"
+                + "размещать детальную информацию о центре и помещениях";
+            ViewBag.Message = "";
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            //ViewBag.Message = "Your contact page.";
+            return View();
+        }
 
+        public ActionResult Instruction()
+        {
+            //ViewBag.Message = "Your contact page.";
             return View();
         }
 

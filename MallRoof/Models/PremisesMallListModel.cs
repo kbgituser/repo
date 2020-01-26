@@ -11,7 +11,8 @@ namespace MallRoof.Models
     public class PremisesMallListModel
     {
         public PagedList.IPagedList<Premise> Premises { get; set;}
-        public List<Mall> Malls { get; set; }        
+        public List<Mall> Malls { get; set; }
+        public List<City> Cities { get; set; }
         public string MallId { get; set; }
         public string Price { get; set; }
         public string Area { get; set; }

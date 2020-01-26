@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <meta name="yandex-verification" content="05146922c712609c" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @*<title>@ViewBag.Title - Управление помещением</title>*@
@@ -22,7 +23,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("База помещений", "Index", "Premises", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Kenseler", "Index", "Premises", new { area = "" }, 
+               new { @class = "navbar-brand text-uppercase text-primary" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -30,12 +32,14 @@
         <li>@Html.ActionLink("About", "About", "Home")</li>
         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
 
-
+                    <li>@Html.ActionLink("О проекте", "About", "Home")</li>
+                    <li>@Html.ActionLink("Иструкции", "Instruction", "Home")</li>
 
                     @if (User.IsInRole("Admin"))
                     {
-                        <li>@Html.ActionLink("Роли", "RoleIndex", "Users")</li>
+                        <li>@Html.ActionLink("Роли", "Index", "RolesAdmin")</li>
                         <li>@Html.ActionLink("Пользователи", "Index", "Users")</li>
+                        <li>@Html.ActionLink("Города", "Index", "Cities")</li>
                     }
                     @if (!User.Identity.IsAuthenticated)
                     {
@@ -50,10 +54,11 @@
                         <li>@Html.ActionLink("Помещения", "Index", "Premises")</li>
                         <li>@Html.ActionLink("Мои помещения", "Index", "Premises", new { getMine = true }, null)</li>
                     }
+                    <li>@Html.ActionLink("Контакты", "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
-            <li class="dropdown">
+            @*<li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     Меню
                     <span class="caret"></span>
@@ -64,13 +69,13 @@
                     <li>@Html.ActionLink("Мои центры", "Index", "Malls", new { getMine = true }, null)</li>                    
                     <li>@Html.ActionLink("Мои помещения", "Index", "Premises", new { getMine = true }, null)</li>
                 </ul>
-            </li>
+            </li>*@
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
+        <footer class="text-center">
             <p>&copy; @DateTime.Now.Year - Управление помещением</p>
         </footer>
     </div>

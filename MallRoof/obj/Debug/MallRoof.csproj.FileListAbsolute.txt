@@ -98,7 +98,6 @@ C:\Users\User\source\repos\MallRoof\MallRoof\bin\Microsoft.Owin.Security.Twitter
 C:\Users\User\source\repos\MallRoof\MallRoof\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\User\source\repos\MallRoof\MallRoof\bin\Microsoft.Owin.Security.OAuth.xml
 C:\Users\User\source\repos\MallRoof\MallRoof\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\User\source\repos\MallRoof\MallRoof\obj\Debug\MallRoof.csprojAssemblyReference.cache
 C:\Users\User\source\repos\MallRoof\MallRoof\obj\Debug\MallRoof.csproj.CoreCompileInputs.cache
 C:\Users\User\source\repos\MallRoof\MallRoof\obj\Debug\MallRoof.csproj.CopyComplete
 C:\Users\User\source\repos\MallRoof\MallRoof\obj\Debug\MallRoof.dll
@@ -125,3 +124,9 @@ C:\Users\User\source\repos\MallRoof\MallRoof\bin\PagedList.Mvc.dll
 C:\Users\User\source\repos\MallRoof\MallRoof\bin\PagedList.xml
 C:\Users\User\source\repos\MallRoof\MallRoof\bin\PagedList.Mvc.xml
 C:\Users\User\source\repos\MallRoof\MallRoof\obj\Debug\MallRoof.Migrations.mall_has_required_user_____Photo_premises.resources
+C:\Users\User\source\repos\MallRoof\MallRoof\obj\Debug\MallRoof.Migrations.mallChange.resources
+C:\Users\User\source\repos\MallRoof\MallRoof\obj\Debug\MallRoof.Migrations.cities.resources
+C:\Users\User\source\repos\MallRoof\MallRoof\obj\Debug\MallRoof.Migrations.cities_in_mall_are_mandatory.resources
+C:\Users\User\source\repos\MallRoof\MallRoof\obj\Debug\MallRoof.csprojAssemblyReference.cache
+C:\Users\User\source\repos\MallRoof\MallRoof\obj\Debug\MallRoof.Migrations.demands.resources
+C:\Users\User\source\repos\MallRoof\MallRoof\obj\Debug\MallRoof.Migrations.user.resources

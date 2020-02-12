@@ -13,7 +13,7 @@ namespace MallRoof.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid PremiseId { get; set; }
-        [Display(Name ="Номер помещения")]        
+        [Display(Name ="Номер помещения")]
         public string Number { get; set; }
         [Display(Name = "Этаж")]
         [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Можно вводить только цифры")]

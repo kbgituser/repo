@@ -49,26 +49,38 @@ namespace MallRoof.Controllers
         }
 
         // GET: Premises
-        public ActionResult Index(string mallId, string price, string area, string haswindow, string priceorder, string order, string getMine
-            ,int? page
+        public ActionResult Index(string mallId, string price, string area, string haswindow, string priceorder
+            , string order, string getMine, string forAdmin
+            , int? page
+            , string cityId
             )
-        {            
+        {
             var user = UserManager.FindById(User.Identity.GetUserId());
+            
+            
             if (user != null)
             {
                 ViewBag.Malls = user.Malls;
                 ViewBag.User = user;
             }
             PremisesMallListModel premisesMallListModel = new PremisesMallListModel();
-
+            
             var premises = db.Premises.AsQueryable();
+            
+
             int priceint;
             if (Int32.TryParse(price, out priceint))
             {
                 premises = premises.Where(p => p.Price <= priceint);
                 premisesMallListModel.Price = price;
             }
-            
+
+            if (!string.IsNullOrEmpty(cityId))
+            {
+                Guid CityIdG;
+                if (Guid.TryParse(cityId, out CityIdG))
+                premises = premises.Where(p => p.Mall.CityId == CityIdG);
+            }
 
             Guid mallIdg;
             if (!string.IsNullOrEmpty(mallId) && Guid.TryParse(mallId, out mallIdg))
@@ -91,8 +103,7 @@ namespace MallRoof.Controllers
                 {
                     premises = premises.Where(p => p.HasWindow == haswindowb);
                     premisesMallListModel.Haswindow = haswindowb.ToString();
-                }
-                
+                }                
             }
 
             switch (order)
@@ -124,22 +135,26 @@ namespace MallRoof.Controllers
 
             ViewBag.PriceSortParam = order == "price" ? "price_desc" : "price";
             ViewBag.AreaSortParam = order == "area" ? "area_desc" : "area";
-            
+            premisesMallListModel.Cities = db.Cities.ToList();
 
-            if (user != null && !string.IsNullOrEmpty(getMine) && bool.TrueString == getMine)
+            if (user != null && bool.TrueString == getMine)
             {
                 premisesMallListModel.Malls = user.Malls.ToList();
-                //malls = malls.Where(m => m.UserId == user.Id);
-                premises = premises.Where(p => p.Mall.UserId == user.Id);                
-
+                premises = premises.Where(p => p.Mall.UserId == user.Id);
                 premisesMallListModel.Premises = premises.ToPagedList(pageNumber, pageSize);
                 return View("IndexLandlord", premisesMallListModel);
             }
+
+            if (User.IsInRole("Admin"))
+            {
+                premisesMallListModel.Malls = db.Malls.ToList();                
+                premisesMallListModel.Premises = premises.ToPagedList(pageNumber, pageSize);
+                return View("IndexLandlord", premisesMallListModel);
+            }
+
             premisesMallListModel.Malls = db.Malls.ToList();
-            premisesMallListModel.Premises = premises.ToPagedList(pageNumber, pageSize);
+            premisesMallListModel.Premises = premises.Where(p=>p.IsSeen == true).ToPagedList(pageNumber, pageSize);
             return View(premisesMallListModel);
-
-
             //return View(db.Premises.ToList());
         }
 
@@ -233,7 +248,8 @@ namespace MallRoof.Controllers
         public ActionResult Create(Guid Id)
         {
             ViewBag.MallId = Id;
-            return View();
+            var newPremise = new Premise() { IsSeen = true, HasWindow = true };
+            return View(newPremise);
         }
 
         // POST: Premises/Create
@@ -248,7 +264,7 @@ namespace MallRoof.Controllers
                 premise.PremiseId = Guid.NewGuid();
                 db.Premises.Add(premise);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Premises", new { getMine = true});
             }
 
             return View(premise);
@@ -272,9 +288,9 @@ namespace MallRoof.Controllers
 
             var user = UserManager.FindById(User.Identity.GetUserId());
             if (user != null)
-            {
-                if (premise.Mall.UserId != user.Id)
-                    return RedirectToAction("Index");
+            {                
+                    if (!User.IsInRole("Admin") && premise.Mall.UserId != user.Id)
+                        return RedirectToAction("Index", "Premises");
             }
             return View(premise);
         }
@@ -286,7 +302,6 @@ namespace MallRoof.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "PremiseId,Number,Floor,Area,IsLastFloor,HasWindow,Description,Price,IsSeen,MallId")] Premise premise)
         {
-
             if (ModelState.IsValid)
             {
                 db.Entry(premise).State = EntityState.Modified;
@@ -314,7 +329,7 @@ namespace MallRoof.Controllers
             if (user != null)
             {
                 if (premise.Mall.UserId != user.Id)
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index","Premises");
             }
 
             return View(premise);
@@ -328,7 +343,7 @@ namespace MallRoof.Controllers
             Premise premise = db.Premises.Find(id);
             db.Premises.Remove(premise);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Premises");
         }
 
         [Authorize]
@@ -349,7 +364,7 @@ namespace MallRoof.Controllers
             if (user != null)
             {
                 if (photo.Premise.Mall.UserId != user.Id)
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Premises");
             }
             string premiseId = photo.PremiseId.ToString();
 
@@ -378,12 +393,10 @@ namespace MallRoof.Controllers
         {
             if (upload != null)
             {
-
-
                 bool isValid = false;
                 // Settings.  
                 int allowedFileSize = Int32.Parse(ConfigurationManager.AppSettings["maxAllowedContentLength"]);
-
+                int allowedPhotoCount = Int32.Parse(ConfigurationManager.AppSettings["photoCount"]);
                 // Initialization.  
                 var fileSize = upload.ContentLength;
 
@@ -392,14 +405,27 @@ namespace MallRoof.Controllers
 
                 if (isValid)
                 {
+                    string folderName = "PremiseImages";
+                                        
+                    string path = ControllerContext.HttpContext.Server.MapPath("~/" + folderName) ;
+                    //string path = Server.MapPath("~/"+ folderName);
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
                     Guid premiseId = Guid.Parse(PremiseId);
                     var premise = db.Premises.SingleOrDefault(p => p.PremiseId == premiseId);
                     int photosCount = premise.Photos.Count;
                     Photo photo = new Photo();
+                    if (photosCount >= allowedPhotoCount)
+                    {
+                        ViewBag.Error = "Количество фотографий должно быть не более " + allowedPhotoCount.ToString();
+                        return RedirectToAction("Edit", "Premises", new { id = PremiseId});
+                    }
                     //context.Photos.Add();
                     // получаем имя файла
-                    string fileExtension = System.IO.Path.GetExtension(upload.FileName);
-                    string fileName = ("/Files/" + PremiseId + "_" + (photosCount + 1).ToString()) + fileExtension;
+                    string fileExtension = System.IO.Path.GetExtension(upload.FileName);                    
+                    string fileName = ("/" + folderName + "/" + PremiseId + "_" + (photosCount + 1).ToString()) + fileExtension;
                     // сохраняем файл в папку Files в проекте
                     //fileName = ControllerContext.HttpContext.Server.MapPath(fileName);
                     upload.SaveAs(ControllerContext.HttpContext.Server.MapPath(fileName));

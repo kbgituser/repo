@@ -23,6 +23,9 @@ namespace MallRoof.Models
         [Display(Name = "Телефон")]
         public string Phone { get; set; }
 
+        [Display(Name = "Подтверждена почта")]
+        public override bool EmailConfirmed { get; set; }
+
         [Display(Name = "Центры")]
         public virtual ICollection<Mall> Malls { get; set; }
     }

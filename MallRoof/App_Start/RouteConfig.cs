@@ -25,8 +25,8 @@ namespace MallRoof
                 "{controller}/{action}/{id}",
                 //defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
                 new { controller = "Premises", action = "Index", id = UrlParameter.Optional }
-
             );
+            routes.MapRoute("MyRoute", "{controller}/{action}", defaults: new { action = "Index" });
         }
 
 

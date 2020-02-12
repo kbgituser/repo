@@ -1,18 +1,17 @@
 ﻿@model IdentitySample.Models.RoleViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Изменение роли";
 }
 
-<h2>Edit.</h2>
+<h2>@ViewBag.Title</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>Roles.</h4>
+    <div class="form-horizontal">     
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.Id)
@@ -27,14 +26,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Сохранить" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("К списку", "Index")
 </div>
 
 @section Scripts {

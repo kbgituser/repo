@@ -22,9 +22,11 @@ namespace MallRoof.DAL
 
         public DbSet<Mall> Malls { get; set; }
         public DbSet<Photo> Photos { get; set; }
+        public DbSet<MallPhoto> MallPhotos { get; set; }
         public DbSet<Premise> Premises { get; set; }
         public DbSet<PremiseCalendar> PremiseCalendars { get; set; }
         public System.Data.Entity.DbSet<MallRoof.Models.User> IdentityUsers { get; set; }
+        public DbSet<City> Cities { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -46,6 +48,18 @@ namespace MallRoof.DAL
                 .HasRequired<User>(s => s.User)
                 .WithMany(g => g.Malls)
                 .HasForeignKey(s => s.UserId);
+
+            modelBuilder.Entity<Mall>()
+                //.HasOptional<City>(s => s.City)
+                .HasRequired<City>(s => s.City)
+                .WithMany(g => g.Malls)
+                .HasForeignKey(s => s.CityId);
+
+            modelBuilder.Entity<Demand>()                
+                .HasRequired<User>(u => u.User)
+                ;
         }
+
+        public System.Data.Entity.DbSet<MallRoof.Models.Demand> Demands { get; set; }
     }
 }

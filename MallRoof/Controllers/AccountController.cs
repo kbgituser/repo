@@ -82,7 +82,8 @@ namespace MallRoof.Controllers
             }
 
             // Require the user to have a confirmed email before they can log on.
-            var user = await UserManager.FindByNameAsync(model.Email);
+            //var user = await UserManager.FindByNameAsync(model.Email);
+            var user = await UserManager.FindByEmailAsync(model.Email);
             //расскоментировать чтобы подтверждение работало
             if (user != null)
             {

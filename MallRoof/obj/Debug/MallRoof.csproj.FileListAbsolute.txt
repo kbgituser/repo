@@ -130,3 +130,6 @@ C:\Users\User\source\repos\MallRoof\MallRoof\obj\Debug\MallRoof.Migrations.citie
 C:\Users\User\source\repos\MallRoof\MallRoof\obj\Debug\MallRoof.csprojAssemblyReference.cache
 C:\Users\User\source\repos\MallRoof\MallRoof\obj\Debug\MallRoof.Migrations.demands.resources
 C:\Users\User\source\repos\MallRoof\MallRoof\obj\Debug\MallRoof.Migrations.user.resources
+C:\Users\User\source\repos\MallRoof\MallRoof\obj\Debug\MallRoof.Migrations.norm.resources
+C:\Users\User\source\repos\MallRoof\MallRoof\obj\Debug\MallRoof.Migrations.test3.resources
+C:\Users\User\source\repos\MallRoof\MallRoof\obj\Debug\MallRoof.Migrations.test4.resources

@@ -21,7 +21,7 @@
         <div class="col-md-10">
             @*//@Html.DropDownListFor(model => model.CityId, ViewBag.Cities, "Выберите город")*@
             @Html.DropDownListFor(x => Model.CityId, new SelectList(ViewBag.Cities, "CityId", "Name"),"Выберите город", htmlAttributes: new { @class = "form-control", id = "City" })
-            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
         </div>
     </div>
 

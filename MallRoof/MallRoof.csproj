@@ -296,6 +296,18 @@
     <Compile Include="Migrations\202001310752571_user.Designer.cs">
       <DependentUpon>202001310752571_user.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002121225435_norm.cs" />
+    <Compile Include="Migrations\202002121225435_norm.Designer.cs">
+      <DependentUpon>202002121225435_norm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002121306251_test3.cs" />
+    <Compile Include="Migrations\202002121306251_test3.Designer.cs">
+      <DependentUpon>202002121306251_test3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002121307325_test4.cs" />
+    <Compile Include="Migrations\202002121307325_test4.Designer.cs">
+      <DependentUpon>202002121307325_test4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
@@ -510,6 +522,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001310752571_user.resx">
       <DependentUpon>202001310752571_user.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002121225435_norm.resx">
+      <DependentUpon>202002121225435_norm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002121306251_test3.resx">
+      <DependentUpon>202002121306251_test3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002121307325_test4.resx">
+      <DependentUpon>202002121307325_test4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

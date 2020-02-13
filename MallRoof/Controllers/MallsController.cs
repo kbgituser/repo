@@ -120,7 +120,10 @@ namespace MallRoof.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index", "Malls");
             }
+            var errors = ModelState.Where(x => x.Value.Errors.Any())
+                .Select(x => new { x.Key, x.Value.Errors });
 
+            ViewBag.Cities = db.Cities.OrderBy(c => c.Name);
             return View(mall);
         }
 

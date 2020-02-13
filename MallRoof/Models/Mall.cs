@@ -38,8 +38,10 @@ namespace MallRoof.Models
         [Display(Name = "Фотографии")]
         public virtual ICollection<MallPhoto> MallPhotos { get; set; }
 
+        [Required(ErrorMessage = "Выберите город")]
         public Guid CityId { get; set; }
-        [Display(Name = "Город")]
+
+        [Display(Name = "Город")]        
         public virtual City City { get; set; }
     }
 }

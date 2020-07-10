@@ -1,0 +1,87 @@
+﻿@model MallRoof.Models.Proposal
+
+@{
+    ViewBag.Title = "Предложение";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Premise.Mall.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Premise.Mall.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Premise.Area)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Premise.Area)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Premise.Floor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Premise.Floor)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Premise.IsLastFloor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Premise.IsLastFloorString)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Premise.HasWindow)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Premise.HasWindowString)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateDate)
+        </dd>
+    </dl>
+</div>
+
+<p>
+    @Html.ActionLink("Редактировать", "Edit", new { id = Model.ProposalId }) |
+    @Html.ActionLink("Предложения", "Index")
+    @if (Model.DemandId != null)
+    {
+        <span>|</span>
+        @Html.ActionLink("Запрос предложения", "Details","Demands",new {id = Model.DemandId }, null)}
+</p>

@@ -1,0 +1,74 @@
+﻿@model IEnumerable<MallRoof.Models.Mall>
+
+@{
+    ViewBag.Title = "Центры";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Торговые центры</h2>
+
+<p>
+    @Html.ActionLink("Новый центр", "Create",null, new { @class = "btn btn-info" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.NumberOfFloors)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParkingExists)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParkingPayment)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.ParkingInsideExists)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParkingInsidePayment)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.NumberOfFloors)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParkingExists)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParkingPayment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParkingInsideExists)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParkingInsidePayment)
+        </td>
+        <td>
+            @Html.ActionLink("Добавить помещение к этому центру", "Create", "Premises", new { id = item.MallId }, null) |
+            @Html.ActionLink("Изменить", "Edit", new { id = item.MallId }) |
+            @*@Html.ActionLink("Details", "Details", new { id = item.MallId }) |*@
+            @Html.ActionLink("Удалить", "Delete", new { id = item.MallId }) |
+        </td>
+    </tr>
+}
+
+</table>

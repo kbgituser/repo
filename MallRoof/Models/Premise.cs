@@ -26,8 +26,17 @@ namespace MallRoof.Models
         public double Area { get; set; }
         [Display(Name = "Последний этаж?")]
         public bool IsLastFloor { get; set; }
+        public string IsLastFloorString
+        {
+            get { return IsLastFloor ? "Да" : "Нет"; }
+        }
         [Display(Name = "Есть ли окно?")]
         public bool HasWindow { get; set; }
+        public string HasWindowString
+        {
+            get { return HasWindow ? "Да" : "Нет"; }
+        }
+        
         [Display(Name = "Описание")]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
@@ -37,6 +46,8 @@ namespace MallRoof.Models
         public virtual ICollection<PremiseCalendar> PremiseCalendars { get; set; }
         [Display(Name = "Фотографии")]
         public virtual ICollection<Photo> Photos { get; set; }
+        [Display(Name = "Предложения")]
+        public virtual ICollection<Proposal> Proposals { get; set; }
         [Display(Name = "Видимость")]
         public bool IsSeen { get; set; }
 

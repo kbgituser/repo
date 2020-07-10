@@ -1,0 +1,73 @@
+﻿@model MallRoof.Models.Demand
+
+@{
+    ViewBag.Title = "Удаление";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3>Вы действительно хотите удалить этот запрос?</h3>
+<div>
+    <h4>@ViewBag.Title</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PriceFrom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriceFrom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PriceTo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriceTo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AreaFrom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AreaFrom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AreaTo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AreaTo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Message)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Message)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-default" /> |
+            @Html.ActionLink("К списку", "Index")
+        </div>
+    }
+</div>

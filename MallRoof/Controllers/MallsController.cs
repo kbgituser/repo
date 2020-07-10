@@ -47,7 +47,7 @@ namespace MallRoof.Controllers
 
         // GET: Malls
         //[Authorize]
-        public ActionResult Index(string getMine, int? page, string forAdmin)
+        public ActionResult Index(string getMine, int? page, string forAdmin, string premiseCreate)
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
             var malls = db.Malls.OrderBy(m=>m.Name).AsQueryable();
@@ -59,6 +59,12 @@ namespace MallRoof.Controllers
                 int.TryParse(pSize, out pageSize);
             }
             int pageNumber = (page ?? 1);
+
+            if (user != null && !string.IsNullOrEmpty(premiseCreate) && bool.TrueString == premiseCreate)
+            {
+                malls = malls.Where(m => m.UserId == user.Id);
+                return View("IndexPremiseCreate", malls);
+            }
 
             if ( user!=null &&  !string.IsNullOrEmpty(getMine) &&  bool.TrueString == getMine)
             {
@@ -93,7 +99,7 @@ namespace MallRoof.Controllers
         // GET: Malls/Create
         public ActionResult Create()
         {
-            ViewBag.Cities =  db.Cities.OrderBy(c=>c.Name);
+            ViewBag.Cities =  GetCities();
             return View();
         }
         
@@ -136,7 +142,7 @@ namespace MallRoof.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Mall mall = db.Malls.Find(id);
-            ViewBag.Cities = db.Cities.OrderBy(c => c.Name);
+            ViewBag.Cities = GetCities();
             var user = UserManager.FindById(User.Identity.GetUserId());
             if (user != null && !User.IsInRole("Admin")
                 )
@@ -157,7 +163,7 @@ namespace MallRoof.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MallId,Name,Address,UserId,NumberOfFloors,ParkingExists,ParkingInsideExists,ParkingPayment,ParkingInsidePayment,CityId")] Mall mall)
+        public ActionResult Edit([Bind(Include = "MallId,Name,Address,UserId,NumberOfFloors,ParkingExists,ParkingInsideExists,ParkingPayment,ParkingInsidePayment,CityId,PhoneNumber")] Mall mall)
         {
             if (ModelState.IsValid)
             {
@@ -173,6 +179,7 @@ namespace MallRoof.Controllers
                 mallinDB.ParkingPayment = mall.ParkingPayment;
                 mallinDB.ParkingInsidePayment = mall.ParkingInsidePayment;
                 mallinDB.CityId = mall.CityId;
+                mallinDB.PhoneNumber = mall.PhoneNumber;
 
                 db.Entry(mallinDB).State = EntityState.Modified;
                 db.SaveChanges();
@@ -285,6 +292,15 @@ namespace MallRoof.Controllers
                 }
             }
             return RedirectToAction("Edit", "Malls", new { id = MallId});
+        }
+
+        public List<City> GetCities()
+        {
+            var cities = db.Cities.OrderBy(c => c.Name).ToList();
+            var nur = cities.FirstOrDefault(c => c.Name.Contains("Нур-Султан"));
+            cities.Remove(nur);
+            cities.Insert(0, nur);
+            return cities;
         }
 
         protected override void Dispose(bool disposing)

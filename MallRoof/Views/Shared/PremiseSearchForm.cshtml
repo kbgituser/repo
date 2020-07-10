@@ -1,0 +1,30 @@
+﻿<div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <table class="table">
+            <tr>
+                <td scope="col">Город</td>
+                <td scope="col">Центр</td>
+                <td scope="col">Максимальная цена</td>
+                <td scope="col">Максимальная площадь</td>
+                <td scope="col">Окно</td>
+                <td scope="col"></td>
+            </tr>
+            <tr>
+                <td>@Html.DropDownList("CityId", new SelectList(Model.Cities, "CityId", "Name", Request.Params["CityId"]), "Все города")</td>
+                <td>@Html.DropDownList("MallId", new SelectList(Model.Malls, "MallId", "Name", Request.Params["mallId"]), "Все центры")</td>
+                <td>@Html.TextBox("Price", Request.Params["price"], new { placeholder = "Цена", @class = "allownumericwithoutdecimal" })</td>
+                <td>@Html.TextBox("Area", Request.Params["area"], new { placeholder = "Площадь", @class = "allownumericwithoutdecimal" })</td>
+                <td>
+                    <label>
+                        @Html.CheckBox("HasWindow", Request.Params["HasWindow"])
+                        Есть ли окно?
+                    </label>
+                
+                </td>
+                <td><input type="submit" value="Поиск" class="btn btn-default" /></td>
+            </tr>
+        </table>        
+    }
+</div>

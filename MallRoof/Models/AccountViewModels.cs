@@ -80,9 +80,9 @@ namespace MallRoof.Models
         [Compare("Password", ErrorMessage = "Пароль и подтверждение пароля не соответсвуют друг другу.")]
         public string ConfirmPassword { get; set; }
 
-        [Required]
-        [Display(Name = "Тип пользователя")]
-        public string Role { get; set; }
+        //[Required]
+        //[Display(Name = "Тип пользователя")]
+        //public string Role { get; set; }
     }
 
     public class ResetPasswordViewModel

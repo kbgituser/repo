@@ -7,11 +7,16 @@
     @*<title>@ViewBag.Title - Управление помещением</title>*@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jquery.inputmask")
+    @Scripts.Render("~/bundles/modernizr")
+
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/myJs")
+
+
     @*<script src="~/Scripts/mine/MyJs.js"></script>*@
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/myJs")
 
 </head>
 <body>
@@ -22,60 +27,87 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
+
                 </button>
-                @Html.ActionLink("Kenseler", "Index", "Premises", new { area = "" }, 
+                @Html.ActionLink("Kenseler", "Index", "Premises", new { area = "" },
                new { @class = "navbar-brand text-uppercase text-primary" })
+
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @*<li>@Html.ActionLink("Home", "Index", "Home")</li>
-        <li>@Html.ActionLink("About", "About", "Home")</li>
-        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                    @*<li>@Html.ActionLink("О проекте", "About", "Home")</li>
+                        <li>@Html.ActionLink("Как пользоваться", "Instruction", "Home")</li>
+                        <li>@Html.ActionLink("Центры", "Index", "Malls")</li>
+                        <li>@Html.ActionLink("Помещения", "Index", "Premises")</li>
+                        <li>@Html.ActionLink("Спрос от соискателей", "Index", "Demands")</li>*@
 
                     <li>@Html.ActionLink("О проекте", "About", "Home")</li>
                     <li>@Html.ActionLink("Как пользоваться", "Instruction", "Home")</li>
+                    <li>@Html.ActionLink("Контакты", "Contact", "Home")</li>
 
                     @if (User.IsInRole("Admin"))
                     {
-                        <li>@Html.ActionLink("Роли", "Index", "RolesAdmin")</li>
-                        <li>@Html.ActionLink("Пользователи", "Index", "Users")</li>
-                        <li>@Html.ActionLink("Города", "Index", "Cities")</li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle collapse" data-toggle="dropdown">Админский раздел<b class="caret"></b></a>
+                            <ul class="dropdown-menu navbar" role="menu">
+                                <li>@Html.ActionLink("Роли", "Index", "RolesAdmin")</li>
+                                <li>@Html.ActionLink("Пользователи", "Index", "Users")</li>
+                                <li>@Html.ActionLink("Города", "Index", "Cities")</li>
+                                <li>@Html.ActionLink("Все предложения", "Index", "Proposals")</li>
+                                <li>@Html.ActionLink("Запросы соискателей", "Index", "Demands")</li>
+                            </ul>
+                        </li>
                     }
+
+
+                    @if (User.IsInRole("Landlord"))
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle collapse" data-toggle="dropdown">Пользователь<b class="caret"></b></a>
+                            <ul class="dropdown-menu navbar" role="menu">
+                                <li>@Html.ActionLink("Центры", "Index", "Malls")</li>
+                                <li>@Html.ActionLink("Мои центры", "Index", "Malls", new { getMine = true }, null)</li>
+                                <li>@Html.ActionLink("Помещения", "Index", "Premises")</li>
+                                <li>@Html.ActionLink("Мои помещения", "Index", "Premises", new { getMine = true }, null)</li>
+                                <li>@Html.ActionLink("Запросы соискателей", "Index", "Demands")</li>
+                                <li>@Html.ActionLink("Мои запросы", "Index", "Demands", new { getMine = true }, null)</li>
+                                <li>@Html.ActionLink("Мои предложения", "Index", "Proposals", new { getMine = true }, null)</li>
+                            </ul>
+                        </li>
+                    }
+
                     @if (!User.Identity.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("Центры", "Index", "Malls")</li>
                         <li>@Html.ActionLink("Помещения", "Index", "Premises")</li>
+                        <li>@Html.ActionLink("Запросы соискателей", "Index", "Demands")</li>
                     }
 
-                    @if (User.IsInRole("Landlord"))
-                    {
-                        <li>@Html.ActionLink("Центры", "Index", "Malls")</li>
-                        <li>@Html.ActionLink("Мои центры", "Index", "Malls", new { getMine = true }, null)</li>
-                        <li>@Html.ActionLink("Помещения", "Index", "Premises")</li>
-                        <li>@Html.ActionLink("Мои помещения", "Index", "Premises", new { getMine = true }, null)</li>
-                    }
+                    @*@if (User.IsInRole("Tenant"))
+                        {
+                            <li>@Html.ActionLink("Запросы", "Index", "Demands")</li>
+                            <li>@Html.ActionLink("Мои запросы", "Index", "Demands", new { getMine = true }, null)</li>
+                            <li>@Html.ActionLink("Новый запрос", "Create", "Demands")</li>
+                        }*@
 
-                    @if (User.IsInRole("Tenant"))
-                    {
-                        <li>@Html.ActionLink("Запросы", "Index", "Demands")</li>
-                        <li>@Html.ActionLink("Новый запрос", "Create", "Demands")</li>
-                    }
-                    <li>@Html.ActionLink("Контакты", "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
             @*<li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    Меню
-                    <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu" role="menu">
-                    <li>@Html.ActionLink("Центры", "Index", "Malls")</li>
-                    <li>@Html.ActionLink("Помещения", "Index", "Premises")</li>                    
-                    <li>@Html.ActionLink("Мои центры", "Index", "Malls", new { getMine = true }, null)</li>                    
-                    <li>@Html.ActionLink("Мои помещения", "Index", "Premises", new { getMine = true }, null)</li>
-                </ul>
-            </li>*@
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Меню
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>@Html.ActionLink("Центры", "Index", "Malls")</li>
+                        <li>@Html.ActionLink("Помещения", "Index", "Premises")</li>
+                        <li>@Html.ActionLink("Мои центры", "Index", "Malls", new { getMine = true }, null)</li>
+                        <li>@Html.ActionLink("Мои помещения", "Index", "Premises", new { getMine = true }, null)</li>
+                    </ul>
+                </li>*@
         </div>
     </div>
     <div class="container body-content">
@@ -85,8 +117,17 @@
             <p>&copy; @DateTime.Now.Year - Управление помещением</p>
         </footer>
     </div>
-
-    
     @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        $(function () {
+            if (!Modernizr.inputtypes.date) {
+                $(function () {
+                    $("input[type='date']")
+                        .datepicker({ dateFormat: 'dd/mm/yyyy' })
+                        .get(0).setAttribute("type", "text");
+                })
+            }
+        });
+    </script>
 </body>
 </html>

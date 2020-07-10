@@ -1,0 +1,131 @@
+﻿@model MallRoof.Models.Demand
+
+@{
+    ViewBag.Title = "Редактирование";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (TempData["Error"] != null)
+{
+    <p class="has-error text-danger">@TempData["Error"]</p>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">        
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.DemandId)
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.City.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(x => Model.CityId, new SelectList(ViewBag.Cities, "CityId", "Name"), "Выберите город", htmlAttributes: new { @class = "form-control", id = "City" })
+                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PriceFrom, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PriceFrom, new { htmlAttributes = new { @class = "form-control allownumericwithoutdecimal" } })
+                @Html.ValidationMessageFor(model => model.PriceFrom, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PriceTo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PriceTo, new { htmlAttributes = new { @class = "form-control allownumericwithoutdecimal" } })
+                @Html.ValidationMessageFor(model => model.PriceTo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AreaFrom, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AreaFrom, new { htmlAttributes = new { @class = "form-control allownumericwithdecimal" } })
+                @Html.ValidationMessageFor(model => model.AreaFrom, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AreaTo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AreaTo, new { htmlAttributes = new { @class = "form-control allownumericwithdecimal" } })
+                @Html.ValidationMessageFor(model => model.AreaTo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control allownumericwithdecimal" } })
+                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" }) <br /> В указанную дату предложения приниматься не будут
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HasWindow, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.HasWindow, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.HasWindow, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Сохранить" class="btn btn-success" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                Для активации запроса, нажмите кнопка "Активировать". После активации вы не сможете редактировать запрос.
+                <br />
+                Ваш запрос станет доступным для подачи предложений другими пользователями.
+                <br />
+                @Html.ActionLink("Активировать","Activate", new { id = Model.DemandId },
+        new { onclick = "return confirm('После активации вы не сможете редактировать запрос. Вы уверены что хотите активировать?');" , @class= "btn btn-success" })
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("К списку", "Index")
+</div>
+
+@*@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
+<script>
+    //$(document).ready(function ($) {
+    //    $('#Phone').inputmask("+7(999)999-99-99");
+    //});
+
+    //var selector = document.getElementById("Phone");
+    //var im = new Inputmask("+7(999)999-99-99");
+    //im.mask(selector);
+</script>

@@ -11,7 +11,7 @@
             <a href="#">Hello @User.Identity.GetUserName()</a> 
             @*<span class="lin">Hello @User.Identity.GetUserName()</span>*@
         </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти <span class="glyphicon glyphicon-log-out"></span></a></li>
     </ul>
     }
 }
@@ -19,6 +19,6 @@ else
 {
     <ul class="nav navbar-nav navbar-right">
         <li>@Html.ActionLink("Зарегистрироваться", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Войти", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li>@Html.ActionLink("Войти", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) </li>
     </ul>
 }

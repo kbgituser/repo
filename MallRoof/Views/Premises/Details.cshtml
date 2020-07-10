@@ -5,7 +5,7 @@
 }
 
 <h2>Помещение</h2>
-<div>    
+<div>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -63,13 +63,18 @@
         <dd>
             @Html.DisplayFor(model => model.Price)
         </dd>
-        
+        <dt>
+            @Html.DisplayNameFor(model => model.Mall.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mall.PhoneNumber)
+        </dd>
 
     </dl>
 </div>
-
 <h4>Фотографии</h4>
 @RenderPage("~/Views/Shared/PhotosView.cshtml")
-<p>    
+<p>
     @Html.ActionLink("Назад к списку", "Index")
 </p>

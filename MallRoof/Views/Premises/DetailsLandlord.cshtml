@@ -1,0 +1,89 @@
+﻿@model MallRoof.Models.Premise
+@{
+    ViewBag.Title = "Описание";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Помещение</h2>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Floor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Floor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Area)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Area)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsLastFloor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsLastFloor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HasWindow)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HasWindow)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Mall.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mall.PhoneNumber)
+        </dd>
+
+    </dl>
+</div>
+<h4>Предложения</h4>
+@foreach (var proposal in Model.Proposals)
+{    
+    <span>@proposal.Premise.Mall.Name</span>
+    <span>@proposal.Premise.Area</span>
+    <span>@proposal.Premise.Number</span>
+    @Html.ActionLink("Подробнее", "Details", "Proposals", new {id=proposal.ProposalId }, null)
+    <br />
+}
+<h4>Фотографии</h4>
+@RenderPage("~/Views/Shared/PhotosView.cshtml")
+<p>
+    @Html.ActionLink("Назад к списку", "Index")
+</p>

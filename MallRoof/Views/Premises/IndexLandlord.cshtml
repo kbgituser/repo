@@ -11,8 +11,6 @@
 
 <h2>Помещения</h2>
 
-@RenderPage("~/Views/Shared/PremiseSearchForm.cshtml")
-
 @if (ViewBag.Malls != null)
 {
     foreach (var item in ViewBag.Malls)
@@ -22,7 +20,9 @@
     }
 }
 
+@RenderPage("~/Views/Shared/PremiseSearchForm.cshtml")
 
+        
 <table class="table">
     <tr>
         <th>
@@ -127,7 +127,7 @@
                 @if (ViewBag.User != null)
                 {
                     @Html.ActionLink("Изменить |", "Edit", new { id = item.PremiseId });
-                    @Html.ActionLink(" Детали |", "Details", new { id = item.PremiseId });
+                    @Html.ActionLink(" Детали |", "Details", new { id = item.PremiseId, getMine = true });
                     @Html.ActionLink(" Удалить", "Delete", new { id = item.PremiseId });
                 }
 

@@ -1,0 +1,63 @@
+﻿@*@model IEnumerable<MallRoof.Models.Proposal>*@
+@model PagedList.IPagedList<MallRoof.Models.Proposal>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Предложения";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Demand.TenantUser.Email)*@
+            Соискатель
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.LandLordUser.Email)*@
+            Арендодатель
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SingleOrDefault().Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SingleOrDefault().Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SingleOrDefault().CreateDate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Demand.TenantUser.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LandLordUser.Email)
+            </td>
+            <td class="text-right">
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            <td>
+                @Html.ActionLink("Редактировать", "Edit", new { id = item.ProposalId }) |
+                @Html.ActionLink("Подробнее", "Details", new { id = item.ProposalId }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.ProposalId })
+            </td>
+        </tr>
+    }
+
+</table>
+    Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

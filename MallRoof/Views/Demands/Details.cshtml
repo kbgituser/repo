@@ -1,0 +1,110 @@
+﻿@model MallRoof.Models.Demand
+
+@{
+    ViewBag.Title = "Запрос детально";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="row">    
+    <hr />
+    <dl class="dl-horizontal col-md-6">
+        <dt>
+            @Html.DisplayNameFor(model => model.PriceFrom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriceFrom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PriceTo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriceTo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AreaFrom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AreaFrom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AreaTo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AreaTo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Message)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Message)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+    </dl>
+    @if (Model.DemandStatus == MallRoof.Models.DemandStatus.Active)
+    {
+        <div class="col-md-6  text-center jumbotron align-items-center">@Html.ActionLink("Сделать предложение", "Create", "Proposals", new { demandId = Model.DemandId }, new { @class = "align-middle" })</div>
+    }
+    else
+    {
+        <div class="col-md-6  text-center jumbotron align-items-center">Запрос не активен. Вы не можете сделать предложение!</div>
+    }
+
+        </div>
+
+@if (ViewBag.IsOwner !=null && ViewBag.IsOwner)
+{
+<br/><br />
+    <h4>Предложения к запросу</h4>
+    
+    <table class="table">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Proposals.SingleOrDefault().Premise.Mall.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.Proposals.SingleOrDefault().Premise.Number)</th>
+            <th>@Html.DisplayNameFor(model => model.Proposals.SingleOrDefault().Premise.Area)</th>
+            <th>@Html.DisplayNameFor(model => model.Proposals.SingleOrDefault().Premise.Price)</th>            
+            <th></th>
+        </tr>
+        @foreach (var proposal in Model.Proposals)
+        {
+            <tr>
+                <td>
+                    @proposal.Premise.Mall.Name
+                </td>
+                <td>
+                    @proposal.Premise.Number
+                </td>
+                <td>
+                    @proposal.Premise.Area
+                </td>
+                <td>
+                    @proposal.Price
+                </td>                
+                <td>
+                    @Html.ActionLink("Подробнее", "Details", "Proposals", new { id = proposal.ProposalId }, null)
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+    <p>
+        @*@Html.ActionLink("Edit", "Edit", new { id = Model.DemandId }) |*@
+        @Html.ActionLink("Запросы соискателей", "Index") |
+        @Html.ActionLink("Мои запросы", "Index", new { getMine = true })
+    </p>

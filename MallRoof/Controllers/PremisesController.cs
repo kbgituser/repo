@@ -103,7 +103,7 @@ namespace MallRoof.Controllers
                 {
                     premises = premises.Where(p => p.HasWindow == haswindowb);
                     premisesMallListModel.Haswindow = haswindowb.ToString();
-                }                
+                }
             }
 
             switch (order)
@@ -147,7 +147,7 @@ namespace MallRoof.Controllers
 
             if (User.IsInRole("Admin"))
             {
-                premisesMallListModel.Malls = db.Malls.ToList();                
+                premisesMallListModel.Malls = db.Malls.ToList();
                 premisesMallListModel.Premises = premises.ToPagedList(pageNumber, pageSize);
                 return View("IndexLandlord", premisesMallListModel);
             }
@@ -229,7 +229,7 @@ namespace MallRoof.Controllers
         //}
 
         // GET: Premises/Details/5
-        public ActionResult Details(Guid? id)
+        public ActionResult Details(Guid? id, string getMine)
         {
             if (id == null)
             {
@@ -240,11 +240,17 @@ namespace MallRoof.Controllers
             {
                 return HttpNotFound();
             }
+
+            if (bool.TrueString == getMine)
+            {
+                return View("DetailsLandlord", premise);
+            }
+
             return View(premise);
         }
 
         // GET: Premises/Create        
-
+        
         public ActionResult Create(Guid Id)
         {
             ViewBag.MallId = Id;
@@ -264,9 +270,17 @@ namespace MallRoof.Controllers
                 premise.PremiseId = Guid.NewGuid();
                 db.Premises.Add(premise);
                 db.SaveChanges();
+
+                if (Session["demandId"] != null)
+                {
+                    var demandId = Session["demandId"];
+                    Session.Remove("demandId");
+                    bool gone = (Session["demandId"] == null);
+                    var test = gone;
+                    return RedirectToAction("Create", "Proposals", new { demandId = demandId });
+                }
                 return RedirectToAction("Index", "Premises", new { getMine = true});
             }
-
             return View(premise);
         }
 
@@ -341,6 +355,7 @@ namespace MallRoof.Controllers
         public ActionResult DeleteConfirmed(Guid id)
         {
             Premise premise = db.Premises.Find(id);
+            db.Proposals.RemoveRange(premise.Proposals);            
             db.Premises.Remove(premise);
             db.SaveChanges();
             return RedirectToAction("Index", "Premises");
@@ -383,8 +398,6 @@ namespace MallRoof.Controllers
             catch
             {
             }
-            
-
             return RedirectToAction("Edit", "Premises", new { id = premiseId });
         }
 
@@ -419,7 +432,8 @@ namespace MallRoof.Controllers
                     Photo photo = new Photo();
                     if (photosCount >= allowedPhotoCount)
                     {
-                        ViewBag.Error = "Количество фотографий должно быть не более " + allowedPhotoCount.ToString();
+                        //ViewBag.Error = "Количество фотографий должно быть не более " + allowedPhotoCount.ToString();
+                        TempData["allowedPhotoCount"] = "Количество фотографий должно быть не более " + allowedPhotoCount.ToString();
                         return RedirectToAction("Edit", "Premises", new { id = PremiseId});
                     }
                     //context.Photos.Add();
@@ -438,7 +452,7 @@ namespace MallRoof.Controllers
                 else
                 {
                     var fsinMegaByte = (allowedFileSize / 1024f) / 1024f;
-                    ViewBag.Error = "Загружаемая фотография должна быть меньше " + fsinMegaByte.ToString() + "Мб";
+                    ViewBag.ErrorMessage = "Загружаемая фотография должна быть меньше " + fsinMegaByte.ToString() + "Мб";
                     return View("Error");
                 }
             }

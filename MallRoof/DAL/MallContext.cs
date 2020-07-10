@@ -27,6 +27,8 @@ namespace MallRoof.DAL
         public DbSet<PremiseCalendar> PremiseCalendars { get; set; }
         public System.Data.Entity.DbSet<MallRoof.Models.User> IdentityUsers { get; set; }
         public DbSet<City> Cities { get; set; }
+        public System.Data.Entity.DbSet<MallRoof.Models.Demand> Demands { get; set; }
+        public System.Data.Entity.DbSet<MallRoof.Models.Proposal> Proposals { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -54,12 +56,43 @@ namespace MallRoof.DAL
                 .HasRequired<City>(s => s.City)
                 .WithMany(g => g.Malls)
                 .HasForeignKey(s => s.CityId);
-
+                       
             modelBuilder.Entity<Demand>()                
-                .HasRequired<User>(u => u.User)
+                .HasRequired<User>(u => u.TenantUser)
+                .WithMany(u=>u.Demands)
+                .HasForeignKey(d=>d.UserId)
+                ;
+
+            modelBuilder.Entity<Demand>()
+                //.HasOptional<City>(s => s.City)
+                .HasRequired<City>(s => s.City)
+                .WithMany(g => g.Demands)
+                .HasForeignKey(s => s.CityId)
+                .WillCascadeOnDelete(false)
+                ;
+
+            modelBuilder.Entity<Proposal>()
+                .HasRequired<Demand>(p => p.Demand)
+                .WithMany(p => p.Proposals)
+                .HasForeignKey(p => p.DemandId)
+                ;
+
+            modelBuilder.Entity<Proposal>()
+                .HasOptional<User>(u => u.LandLordUser)
+                //.HasRequired<User>(u => u.LandLordUser)
+                .WithMany(u => u.Proposals)                
+                .WillCascadeOnDelete(false)
+                ;
+
+            modelBuilder.Entity<Proposal>()
+                //.HasOptional<Premise>(u => u.Premise)
+                .HasRequired<Premise>(u => u.Premise)
+                .WithMany(u => u.Proposals)
+                //.HasForeignKey(p => p.PremiseId)
+                .WillCascadeOnDelete(false)
                 ;
         }
 
-        public System.Data.Entity.DbSet<MallRoof.Models.Demand> Demands { get; set; }
+        
     }
 }

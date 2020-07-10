@@ -1,0 +1,106 @@
+﻿@*//@model MallRoof.Models.Proposal*@
+@model MallRoof.Models.ProposalCreateModel
+
+@{
+    ViewBag.Title = "Новое предложение";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">@ViewBag.Title </h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    <input type="hidden" id="DemandId" name="Proposal.DemandId" value="@Model.DemandId" />
+    @*@Html.Hidden("DemandId",Model.DemandId)*@
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger text-center">@TempData["Error"]</div>
+    }
+
+    <div class="text-center">Выберите одно Ваше помещение в качестве предложения:</div>
+    <br />
+    @if (!Model.CanCreate)
+    {
+        <div class="alert alert-danger text-center">Для создания предложения, у Вас должно быть помещение. <br />У Вас пока нет помещения. <br />Пожалуйста создайте запись помещения @Html.ActionLink("здесь", "Index", "Malls", new { premiseCreate = true  }, null)!</div>
+    }
+    else
+    {
+        var radiotext = "";
+        Guid premiseId;
+        bool firstPremise = true;
+        <table class="table">
+            <tr>
+                <th>Наименование центра</th>
+                <th>Этаж</th>
+                <th>Номер</th>
+                <th>Площадь</th>
+                <th>Выбор</th>
+            </tr>
+            @foreach (var premise in ViewBag.Premises)
+            {
+            
+            radiotext = premise.Mall.Name + " - " + premise.Number + " - " + premise.Floor;
+            premiseId = premise.PremiseId;
+
+            <tr>
+                <td>
+                    @premise.Mall.Name
+                </td>
+                <td>
+                    @premise.Floor
+                </td>
+                <td>
+                    @premise.Number
+                </td>
+                <td>
+                    @premise.Area
+                </td>
+                <td>
+                    <label>@Html.RadioButtonFor(model => model.Proposal.PremiseId, premiseId, firstPremise ? new { @checked = "Checked" } : null) Выбрать </label>
+                </td>
+            </tr>
+
+            @*<label class="col-md-offset-2 col-md-10">@Html.RadioButtonFor(model => model.Proposal.PremiseId, premiseId, firstPremise ? new { @checked = "Checked" } : null) @radiotext </label>
+            <br />*@
+            firstPremise = false;
+            }
+        </table>
+        @Html.ValidationMessageFor(model => model.Proposal.PremiseId, "", new { @class = "text-danger" })
+        <br />
+        <div class="form-group">
+            @Html.LabelFor(model => model.Proposal.Price, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.Proposal.Price, new { htmlAttributes = new { @class = "form-control allownumericwithoutdecimal" } })
+                @Html.ValidationMessageFor(model => model.Proposal.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Proposal.Description, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.Proposal.Description, new { htmlAttributes = new { @class = "form-control col-md-8" } })
+                @Html.ValidationMessageFor(model => model.Proposal.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+                <input type="submit" value="Предложить" class="btn btn-default" />
+            </div>
+        </div>
+    }
+
+</div>
+}
+
+<div>
+    @Html.ActionLink("Запросы соискателей", "Index", "Demands")
+</div>

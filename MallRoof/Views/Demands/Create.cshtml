@@ -1,0 +1,139 @@
+﻿
+
+@model MallRoof.Models.Demand
+
+@{
+    ViewBag.Title = "Запрос на помещение";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(x => Model.CityId, new SelectList(ViewBag.Cities, "CityId", "Name"), "Выберите город", htmlAttributes: new { @class = "form-control", id = "City" })
+            @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PriceFrom, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PriceFrom, new { htmlAttributes = new { @class = "form-control allownumericwithoutdecimal" } })
+            @Html.ValidationMessageFor(model => model.PriceFrom, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PriceTo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PriceTo, new { htmlAttributes = new { @class = "form-control allownumericwithoutdecimal" } })
+            @Html.ValidationMessageFor(model => model.PriceTo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.AreaFrom, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.AreaFrom, new { htmlAttributes = new { @class = "form-control allownumericwithdecimal", pattern = @"[0-9]*" } })
+            @Html.ValidationMessageFor(model => model.AreaFrom, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.AreaTo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.AreaTo, new { htmlAttributes = new { @class = "form-control allownumericwithdecimal", pattern = @"[0-9]*" } })
+            @Html.ValidationMessageFor(model => model.AreaTo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.HasWindow, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.HasWindow, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.HasWindow, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Создать" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+<div>
+    @Html.ActionLink("Помещения", "Index", "Premises")
+</div>
+@*@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
+  
+<script>
+    //alert(0);
+
+    //(function ($) {
+    //    $(document).ready(function () {
+    //        $("#EndDate").datepicker({ minDate: 0 });
+    //        alert('');
+    //    });
+        
+    //})(jQuery);
+
+    //$(document).ready(function () {
+        
+    //    $("#EndDate").datepicker({
+    //        minDate: 0
+    //        // ...
+    //    });
+        
+    //});
+    //alert($("#EndDate").val());
+
+    //var test = $("#EndDate").datepicker("widget").is(":visible");
+    //alert(test);    
+
+    //$(document).ready(function ($) {
+    //    $('#Phone').inputmask("+7(999)999-99-99");
+    //});
+
+        
+
+    
+
+</script>

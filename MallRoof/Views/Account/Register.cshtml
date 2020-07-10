@@ -29,6 +29,15 @@
             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
         </div>
     </div>
+
+    @*<div class="form-group">
+        <div class="col-md-10 col-md-offset-2 text-left">
+            @Html.RadioButtonFor(model => model.Role, "Landlord", new { id = "Landlord" }) <label for="Landlord">Арендодатель (Администратор центра)</label>
+            <br />
+            @Html.RadioButtonFor(model => model.Role, "Tenant" , new { id = "Tenant" }) <label for="Tenant">Соискатель</label>
+        </div>
+        
+    </div>*@
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-default" value="Зарегистрироваться" />

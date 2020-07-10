@@ -95,15 +95,19 @@
         </div>
     </div>
 }
-
+@if (TempData["Error"] != null)
+{
+    <p class="has-error">@TempData["Error"]</p>
+}
 <h3>Выберите фотографию для загрузки. Фотография должна быть меньше 1 МегаБайт</h3>
+<h4 class="text-danger text-center">@TempData["allowedPhotoCount"]</h4>
 @using (Html.BeginForm("Upload", "Premises", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <input type="file" name="upload" /><br>    
-    <input type="hidden" name="PremiseId" value=@Model.PremiseId>    
+    <input type="file" name="upload" /><br>
+    <input type="hidden" name="PremiseId" value=@Model.PremiseId>
     <input type="submit" value="Загрузить" />
 }
-@if (ViewBag.Error!=null)
+@if (ViewBag.Error != null)
 {
     <p class="has-error">ViewBag.Error</p>
 }

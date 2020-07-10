@@ -1,0 +1,22 @@
+﻿<div class="row">
+    @foreach (var photo in Model.Photos)
+    {
+        @*<div class="col-sm-6">
+                <img src="@photo.Path" class="media-object" style="width:120px" />
+            </div>*@
+
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <a href="@photo.Path">
+                    <img src="@photo.Path" alt="Фотография">
+                </a>
+                <div class="caption text-center">                    
+                    @Html.ActionLink("Удалить"
+                   , "DeletePhoto", new { id = photo.PhotoId}
+                   , new { onclick = "return confirm('Вы уверены что хотите удалить фотографию?');" }
+                   )                    
+                </div>
+            </div>
+        </div>
+    }
+</div>

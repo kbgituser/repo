@@ -1,0 +1,39 @@
+﻿<div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <table class="table table-borderless">
+            <tr>
+                @*<td>Город</td>
+                <td>Цена от</td>
+                <td>Цена до</td>
+                <td>Площадь от</td>
+                <td>Площадь до</td>
+                <td>Этаж от</td>
+                <td>Этаж до</td>*@
+            </tr>
+            <tr>
+                <td><span class="col-md-0.5">Города</span> <span class="col-md-0.5">@Html.DropDownList("CityId", new SelectList(ViewBag.Cities, "CityId", "Name", Request.Params["CityId"]), "Все города")</span></td>
+                <td><span>Цена от</span>@Html.TextBox("PriceFrom", Request.Params["pricefrom"], new { placeholder = "Цена от", @class = "allownumericwithoutdecimal" })</td>
+                <td><span>Цена до</span>@Html.TextBox("PriceTo", Request.Params["priceto"], new { placeholder = "Цена до", @class = "allownumericwithoutdecimal" })</td>
+                <td><span>Площадь от</span>@Html.TextBox("AreaFrom", Request.Params["areafrom"], new { placeholder = "Площадь от", @class = "allownumericwithoutdecimal" })</td>
+                <td><span>Площадь от</span>@Html.TextBox("AreaTo", Request.Params["areato"], new { placeholder = "Площадь от", @class = "allownumericwithoutdecimal" })</td>
+                
+            </tr>
+            <tr>                
+                @*<td class="align-middle">
+                    <label>
+                        @Html.CheckBox("HasWindow", Request.Params["HasWindow"])
+                        Есть ли окно?
+                    </label>
+                </td>*@
+                <td><span>Этаж от</span><br />@Html.TextBox("FloorFrom", Request.Params["floorfrom"], new { placeholder = "Этаж от", @class = "allownumericwithoutdecimal" })</td>
+                <td><span>Этаж до</span>@Html.TextBox("FloorTo", Request.Params["floorto"], new { placeholder = "Этаж до", @class = "allownumericwithoutdecimal" })</td>
+
+                
+                
+                <td><br /><input type="submit" value="Поиск" class="btn btn-default" /></td>
+            </tr>
+        </table>        
+    }
+</div>

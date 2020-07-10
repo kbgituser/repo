@@ -1,0 +1,85 @@
+﻿@*@model IEnumerable<MallRoof.Models.Demand>*@
+@model PagedList.IPagedList<MallRoof.Models.Demand>
+@using PagedList.Mvc;
+@using MallRoof.Models;
+
+@{
+    ViewBag.Title = "Запросы на помещение";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Новый запрос", "Create")
+</p>
+<table class="table">
+    <tr>        
+        <th>
+            @Html.DisplayNameFor(model => model.SingleOrDefault().PriceFrom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SingleOrDefault().PriceTo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SingleOrDefault().AreaFrom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SingleOrDefault().AreaTo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SingleOrDefault().Message)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SingleOrDefault().CreateDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SingleOrDefault().EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SingleOrDefault().DemandStatus)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>        
+        <td>
+            @Html.DisplayFor(modelItem => item.PriceFrom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PriceTo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AreaFrom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AreaTo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Message)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDate)
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.DemandStatus)*@
+            @Helper.GetDescription(item.DemandStatus)
+        </td>
+        <td>
+            @if (item.DemandStatus == DemandStatus.Created)
+            {@Html.ActionLink("Изменить", "Edit", new { id = item.DemandId }) <span>|</span>}
+
+            @Html.ActionLink("Детали", "Details", new { id = item.DemandId }) |
+            @Html.ActionLink("Удалить", "Delete", new { id = item.DemandId }) |
+        </td>
+    </tr>
+    }
+</table>
+Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

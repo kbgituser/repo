@@ -28,5 +28,12 @@ namespace MallRoof.Models
 
         [Display(Name = "Центры")]
         public virtual ICollection<Mall> Malls { get; set; }
+
+
+        [Display(Name = "Запросы")]
+        public virtual ICollection<Demand> Demands { get; set; }
+
+        [Display(Name = "Предложения")]
+        public virtual ICollection<Proposal> Proposals { get; set; }
     }
 }

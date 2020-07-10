@@ -162,7 +162,9 @@ namespace MallRoof.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            RegisterViewModel vm = new RegisterViewModel();
+            //vm.Role = "Landlord";
+            return View(vm);
         }
 
         //
@@ -174,17 +176,33 @@ namespace MallRoof.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 //var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+
+                // Это пусть стоит на будущее, когда в форме регистрации будет выбор роли
+                //if (!(model.Role == "Landlord" || model.Role == "Tenant"))
+                //{
+                //    ViewBag.Error = "Указана неправильная роль";
+                //    return View(model);
+                //}
+
                 var user = new User { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     //  Comment the following line to prevent log in until the user is confirmed.
                     //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    IdentityRole role = RoleManager.FindByName("Landlord");
+
+
+                    // Это пусть стоит. На будущее
+                    //IdentityRole role = RoleManager.FindByName(model.Role);
+                    // Добавляем Администратора и соискателя
+                    IdentityRole role = RoleManager.FindByName("Admin");
                     UserManager.AddToRole(user.Id.ToString(), role.Name);
-                    
+
+                    role = RoleManager.FindByName("Tenant");
+                    UserManager.AddToRole(user.Id.ToString(), role.Name);
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

@@ -217,6 +217,7 @@
     <Compile Include="Controllers\MallsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PremisesController.cs" />
+    <Compile Include="Controllers\ProposalsController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -308,12 +309,70 @@
     <Compile Include="Migrations\202002121307325_test4.Designer.cs">
       <DependentUpon>202002121307325_test4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002180754450_phone_demand.cs" />
+    <Compile Include="Migrations\202002180754450_phone_demand.Designer.cs">
+      <DependentUpon>202002180754450_phone_demand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003141626232_demanduser.cs" />
+    <Compile Include="Migrations\202003141626232_demanduser.Designer.cs">
+      <DependentUpon>202003141626232_demanduser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003141628586_demanduser2.cs" />
+    <Compile Include="Migrations\202003141628586_demanduser2.Designer.cs">
+      <DependentUpon>202003141628586_demanduser2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003141704368_demanduser21.cs" />
+    <Compile Include="Migrations\202003141704368_demanduser21.Designer.cs">
+      <DependentUpon>202003141704368_demanduser21.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006171030027_proposal.cs" />
+    <Compile Include="Migrations\202006171030027_proposal.Designer.cs">
+      <DependentUpon>202006171030027_proposal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006180804228_proposal2.cs" />
+    <Compile Include="Migrations\202006180804228_proposal2.Designer.cs">
+      <DependentUpon>202006180804228_proposal2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006221120182_proposal1.cs" />
+    <Compile Include="Migrations\202006221120182_proposal1.Designer.cs">
+      <DependentUpon>202006221120182_proposal1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006230554547_proposal3.cs" />
+    <Compile Include="Migrations\202006230554547_proposal3.Designer.cs">
+      <DependentUpon>202006230554547_proposal3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006230742563_proposal4.cs" />
+    <Compile Include="Migrations\202006230742563_proposal4.Designer.cs">
+      <DependentUpon>202006230742563_proposal4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006261116503_proposal5.cs" />
+    <Compile Include="Migrations\202006261116503_proposal5.Designer.cs">
+      <DependentUpon>202006261116503_proposal5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006261702414_proposal6.cs" />
+    <Compile Include="Migrations\202006261702414_proposal6.Designer.cs">
+      <DependentUpon>202006261702414_proposal6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006281015297_demandCity.cs" />
+    <Compile Include="Migrations\202006281015297_demandCity.Designer.cs">
+      <DependentUpon>202006281015297_demandCity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006281037460_demandCity1.cs" />
+    <Compile Include="Migrations\202006281037460_demandCity1.Designer.cs">
+      <DependentUpon>202006281037460_demandCity1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007010503095_demand_window.cs" />
+    <Compile Include="Migrations\202007010503095_demand_window.Designer.cs">
+      <DependentUpon>202007010503095_demand_window.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Demand.cs" />
+    <Compile Include="Models\DemandStatus.cs" />
     <Compile Include="Models\Extensions.cs" />
+    <Compile Include="Models\Helper.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Mall.cs" />
     <Compile Include="Models\MallPhoto.cs" />
@@ -322,6 +381,8 @@
     <Compile Include="Models\Premise.cs" />
     <Compile Include="Models\PremiseCalendar.cs" />
     <Compile Include="Models\PremisesMallListModel.cs" />
+    <Compile Include="Models\Proposal.cs" />
+    <Compile Include="Models\ProposalCreateModel.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserMall.cs" />
     <Compile Include="Models\UserRoleEdit.cs" />
@@ -344,6 +405,7 @@
     <Content Include="Images\registration.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="libman.json" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\SomeeFtp.pubxml" />
     <None Include="Properties\PublishProfiles\zipProfile.pubxml" />
@@ -353,6 +415,7 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.inputmask.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -449,6 +512,15 @@
     <Content Include="Views\Demands\Edit.cshtml" />
     <Content Include="Views\Demands\Index.cshtml" />
     <Content Include="Views\Demands\IndexLandlord.cshtml" />
+    <Content Include="Views\Shared\_Layout2.cshtml" />
+    <Content Include="Views\Proposals\Create.cshtml" />
+    <Content Include="Views\Proposals\Delete.cshtml" />
+    <Content Include="Views\Proposals\Details.cshtml" />
+    <Content Include="Views\Proposals\Edit.cshtml" />
+    <Content Include="Views\Proposals\Index.cshtml" />
+    <Content Include="Views\Malls\IndexPremiseCreate.cshtml" />
+    <Content Include="Views\Shared\DemandSearchForm.cshtml" />
+    <Content Include="Views\Premises\DetailsLandlord.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -531,6 +603,48 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002121307325_test4.resx">
       <DependentUpon>202002121307325_test4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002180754450_phone_demand.resx">
+      <DependentUpon>202002180754450_phone_demand.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003141626232_demanduser.resx">
+      <DependentUpon>202003141626232_demanduser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003141628586_demanduser2.resx">
+      <DependentUpon>202003141628586_demanduser2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003141704368_demanduser21.resx">
+      <DependentUpon>202003141704368_demanduser21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006171030027_proposal.resx">
+      <DependentUpon>202006171030027_proposal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006180804228_proposal2.resx">
+      <DependentUpon>202006180804228_proposal2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006221120182_proposal1.resx">
+      <DependentUpon>202006221120182_proposal1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006230554547_proposal3.resx">
+      <DependentUpon>202006230554547_proposal3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006230742563_proposal4.resx">
+      <DependentUpon>202006230742563_proposal4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006261116503_proposal5.resx">
+      <DependentUpon>202006261116503_proposal5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006261702414_proposal6.resx">
+      <DependentUpon>202006261702414_proposal6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006281015297_demandCity.resx">
+      <DependentUpon>202006281015297_demandCity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006281037460_demandCity1.resx">
+      <DependentUpon>202006281037460_demandCity1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007010503095_demand_window.resx">
+      <DependentUpon>202007010503095_demand_window.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -58,6 +58,20 @@
     </div>
 
     <div class="form-group">
+        @Html.LabelFor(model => model.Smprice, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.Smprice, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Smprice, "", new { @class = "text-danger" })
+        </div>
+        <div class = "col-md-4 col-md-pull-1" >
+            @Html.ActionLink("Расчитать все помещения этого центра по " + Model.Smprice, "Calculate", "Malls", new { id = Model.MallId }, null)
+        </div>
+        
+    </div>
+    
+
+    <br />
+    <div class="form-group">
         @Html.LabelFor(model => model.ParkingExists, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.ParkingExists, new { htmlAttributes = new { @class = "form-control" } })

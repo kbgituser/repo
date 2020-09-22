@@ -9,8 +9,8 @@
 
 <h2>@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Новый запрос", "Create")
+<p class="text-center">
+    @Html.ActionLink("Создайте ВАШ запрос", "Create",  null, new { @class = "btn btn-default" })
 </p>
 
 @RenderPage("~/Views/Shared/DemandSearchForm.cshtml")
@@ -87,5 +87,7 @@
     }
 
 </table>
-Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+<div class="text-center">
+    Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</div>

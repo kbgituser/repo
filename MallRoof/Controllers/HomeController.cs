@@ -10,6 +10,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 
+
+
 namespace MallRoof.Controllers
 {
     
@@ -124,6 +126,14 @@ namespace MallRoof.Controllers
             }           
 
             return menu;
+        }
+
+        public ActionResult Sitemap()
+        {
+            Generator sitemapGenerator = new Generator();
+            var sitemapNodes = sitemapGenerator.GetSitemapNodes(this.Url);
+            string xml = sitemapGenerator.GetSitemapDocument(sitemapNodes);
+            return this.Content(xml, "text/xml", System.Text.Encoding.UTF8);
         }
 
     }

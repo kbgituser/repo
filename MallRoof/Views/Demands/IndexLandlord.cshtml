@@ -10,8 +10,8 @@
 
 <h2>@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Новый запрос", "Create")
+<p >    
+    @Html.ActionLink("Создать новый запрос", "Create", null, new { @class = "btn btn-success" })
 </p>
 <table class="table">
     <tr>        
@@ -74,12 +74,13 @@
         <td>
             @if (item.DemandStatus == DemandStatus.Created)
             {@Html.ActionLink("Изменить", "Edit", new { id = item.DemandId }) <span>|</span>}
-
             @Html.ActionLink("Детали", "Details", new { id = item.DemandId }) |
             @Html.ActionLink("Удалить", "Delete", new { id = item.DemandId }) |
         </td>
     </tr>
     }
 </table>
-Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+<div class="text-center">
+    Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</div>

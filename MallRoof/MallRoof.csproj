@@ -45,7 +45,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Mail, Version=3.0.20174.2011, Culture=neutral, PublicKeyToken=6dc438ab78a525b3, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mail.dll.3.0.20174.2011\lib\net45\Mail.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Exchange.WebServices, Version=15.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Exchange.WebServices.2.2\lib\40\Microsoft.Exchange.WebServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Exchange.WebServices.Auth, Version=15.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Exchange.WebServices.2.2\lib\40\Microsoft.Exchange.WebServices.Auth.dll</HintPath>
+    </Reference>
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
     </Reference>
@@ -365,6 +374,10 @@
     <Compile Include="Migrations\202007010503095_demand_window.Designer.cs">
       <DependentUpon>202007010503095_demand_window.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007231148082_mall_price.cs" />
+    <Compile Include="Migrations\202007231148082_mall_price.Designer.cs">
+      <DependentUpon>202007231148082_mall_price.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
@@ -372,6 +385,7 @@
     <Compile Include="Models\Demand.cs" />
     <Compile Include="Models\DemandStatus.cs" />
     <Compile Include="Models\Extensions.cs" />
+    <Compile Include="Models\Generator.cs" />
     <Compile Include="Models\Helper.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Mall.cs" />
@@ -383,6 +397,7 @@
     <Compile Include="Models\PremisesMallListModel.cs" />
     <Compile Include="Models\Proposal.cs" />
     <Compile Include="Models\ProposalCreateModel.cs" />
+    <Compile Include="Models\SitemapNode.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserMall.cs" />
     <Compile Include="Models\UserRoleEdit.cs" />
@@ -400,8 +415,12 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\login.png" />
+    <Content Include="Images\login2.png" />
     <Content Include="Images\mycenters.png" />
-    <Content Include="Images\new center.png" />
+    <Content Include="Images\NewCenter2.png" />
+    <Content Include="Images\NewDemand2.png" />
+    <Content Include="Images\NewPremise.png" />
+    <Content Include="Images\NewPremise2.png" />
     <Content Include="Images\registration.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -420,6 +439,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\mine\gtag.js" />
     <Content Include="Scripts\mine\MyJs.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\respond.js" />
@@ -521,6 +541,8 @@
     <Content Include="Views\Malls\IndexPremiseCreate.cshtml" />
     <Content Include="Views\Shared\DemandSearchForm.cshtml" />
     <Content Include="Views\Premises\DetailsLandlord.cshtml" />
+    <Content Include="Views\Demands\StatusChangeAction.cshtml" />
+    <Content Include="Views\Home\IndexOld.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -645,6 +667,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007010503095_demand_window.resx">
       <DependentUpon>202007010503095_demand_window.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007231148082_mall_price.resx">
+      <DependentUpon>202007231148082_mall_price.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

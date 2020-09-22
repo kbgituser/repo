@@ -146,3 +146,13 @@ C:\Users\User\source\repos\MallRoof\MallRoof\obj\Debug\MallRoof.Migrations.propo
 C:\Users\User\source\repos\MallRoof\MallRoof\obj\Debug\MallRoof.Migrations.demandCity.resources
 C:\Users\User\source\repos\MallRoof\MallRoof\obj\Debug\MallRoof.Migrations.demandCity1.resources
 C:\Users\User\source\repos\MallRoof\MallRoof\obj\Debug\MallRoof.Migrations.demand_window.resources
+C:\Users\User\source\repos\MallRoof\MallRoof\obj\Debug\MallRoof.Migrations.mall_price.resources
+C:\Users\User\source\repos\MallRoof\MallRoof\bin\Microsoft.Exchange.WebServices.Auth.dll
+C:\Users\User\source\repos\MallRoof\MallRoof\bin\Microsoft.Exchange.WebServices.dll
+C:\Users\User\source\repos\MallRoof\MallRoof\bin\Microsoft.Exchange.WebServices.pdb
+C:\Users\User\source\repos\MallRoof\MallRoof\bin\Microsoft.Exchange.WebServices.xml
+C:\Users\User\source\repos\MallRoof\MallRoof\bin\Microsoft.Exchange.WebServices.Auth.pdb
+C:\Users\User\source\repos\MallRoof\MallRoof\bin\Microsoft.Exchange.WebServices.Auth.xml
+C:\Users\User\source\repos\MallRoof\MallRoof\bin\Mail.dll
+C:\Users\User\source\repos\MallRoof\MallRoof\bin\Mail.xml
+C:\Users\User\source\repos\MallRoof\MallRoof\obj\Debug\MallRoof.csprojAssemblyReference.cache

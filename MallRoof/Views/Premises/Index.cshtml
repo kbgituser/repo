@@ -128,5 +128,7 @@
     </tr>
     }
 </table>
-Страница @(Model.Premises.PageCount < Model.Premises.PageNumber ? 0 : Model.Premises.PageNumber) из @Model.Premises.PageCount
-@Html.PagedListPager(Model.Premises, page => Url.Action("Index", new { page }))
+<div class="text-center">
+    Страница @(Model.Premises.PageCount < Model.Premises.PageNumber ? 0 : Model.Premises.PageNumber) из @Model.Premises.PageCount
+    @Html.PagedListPager(Model.Premises, page => Url.Action("Index", new { page }))
+</div>

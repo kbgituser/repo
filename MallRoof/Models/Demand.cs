@@ -23,7 +23,7 @@ namespace MallRoof.Models
             }
             else
             {
-                return new ValidationResult("Дата окончания приема предложений должно быть между " + DateTime.Today.ToString("dd.MM.yyyy") + " и " + DateTime.Now.AddDays(7).ToString("dd.MM.yyyy"));
+                return new ValidationResult("Дата окончания приема предложений должно быть между " + DateTime.Today.ToString("dd.MM.yyyy") + " и " + DateTime.Now.AddDays(demandDuration).ToString("dd.MM.yyyy"));
             }
         }
     }

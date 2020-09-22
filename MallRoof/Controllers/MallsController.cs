@@ -81,7 +81,7 @@ namespace MallRoof.Controllers
         }
 
         // GET: Malls/Details/5
-        [Authorize]
+        [Authorize]        
         public ActionResult Details(Guid? id)
         {
             if (id == null)
@@ -97,20 +97,26 @@ namespace MallRoof.Controllers
         }
 
         // GET: Malls/Create
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.Cities =  GetCities();
-            return View();
+            var user = UserManager.FindById(User.Identity.GetUserId());
+
+            Mall newMall = new Mall();
+            newMall.PhoneNumber = user.Phone;
+            return View(newMall);;
         }
-        
+
 
         // POST: Malls/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MallId,Name,Address,UserId,NumberOfFloors,CityId," +
-            "ParkingExists,ParkingInsideExists,ParkingPayment,ParkingInsidePayment")] Mall mall)
+            "ParkingExists,ParkingInsideExists,ParkingPayment,ParkingInsidePayment,Smprice")] Mall mall)
         {
             if (ModelState.IsValid)
             {
@@ -134,6 +140,7 @@ namespace MallRoof.Controllers
         }
 
         // GET: Malls/Edit/5
+        [Authorize]
         public ActionResult Edit(Guid? id)
         {
 
@@ -163,7 +170,8 @@ namespace MallRoof.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MallId,Name,Address,UserId,NumberOfFloors,ParkingExists,ParkingInsideExists,ParkingPayment,ParkingInsidePayment,CityId,PhoneNumber")] Mall mall)
+        [Authorize]
+        public ActionResult Edit([Bind(Include = "MallId,Name,Address,UserId,NumberOfFloors,ParkingExists,ParkingInsideExists,ParkingPayment,ParkingInsidePayment,CityId,PhoneNumber,Smprice")] Mall mall)
         {
             if (ModelState.IsValid)
             {
@@ -180,6 +188,7 @@ namespace MallRoof.Controllers
                 mallinDB.ParkingInsidePayment = mall.ParkingInsidePayment;
                 mallinDB.CityId = mall.CityId;
                 mallinDB.PhoneNumber = mall.PhoneNumber;
+                mallinDB.Smprice = mall.Smprice;
 
                 db.Entry(mallinDB).State = EntityState.Modified;
                 db.SaveChanges();
@@ -187,6 +196,37 @@ namespace MallRoof.Controllers
             }
             return View(mall);
         }
+
+        [Authorize]
+        public ActionResult Calculate(Guid? id)
+        {
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Mall mall = db.Malls.Find(id);
+            
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            if (user != null && !User.IsInRole("Admin")
+                )
+            {
+                if (mall.UserId != User.Identity.GetUserId())
+                    return RedirectToAction("Index", "Malls");
+            }
+
+            if (mall == null)
+            {
+                return HttpNotFound();
+            }
+            foreach (var premise in mall.Premises)
+            {
+                premise.Price = premise.Area * mall.Smprice;
+            }
+            db.SaveChanges();
+            return RedirectToAction("Index", "Premises", new { getMine = true });
+        }
+
 
         // GET: Malls/Delete/5
         public ActionResult Delete(Guid? id)

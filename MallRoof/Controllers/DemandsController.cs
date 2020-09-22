@@ -340,6 +340,42 @@ namespace MallRoof.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult StatusChangeAction()
+        {
+            if (StatusChange())
+            {
+                ViewBag.Message = "Операция проведена успешно";                
+            }
+            else
+            {
+                ViewBag.Message = "Произошла ошика";                
+            }
+            return View();
+        }
+
+        public bool StatusChange()
+        {
+            var demands = db.Demands.Where(d => d.DemandStatus == MallRoof.Models.DemandStatus.Active
+                && d.EndDate <= DateTime.Now
+            );
+
+            foreach (var dem in demands)
+            {
+                dem.DemandStatus = MallRoof.Models.DemandStatus.Done;
+                Console.WriteLine("Статус запроса созданного " + dem.CreateDate.ToShortDateString() + " изменен!");
+            }
+            db.Configuration.ValidateOnSaveEnabled = false;
+            try
+            {
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

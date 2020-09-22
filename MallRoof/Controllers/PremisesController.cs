@@ -410,7 +410,7 @@ namespace MallRoof.Controllers
                 // Settings.  
                 int allowedFileSize = Int32.Parse(ConfigurationManager.AppSettings["maxAllowedContentLength"]);
                 int allowedPhotoCount = Int32.Parse(ConfigurationManager.AppSettings["photoCount"]);
-                // Initialization.  
+                // Initialization. 
                 var fileSize = upload.ContentLength;
 
                 // Settings.  

@@ -18,12 +18,45 @@ using System.Net;
 using System.Configuration;
 using System.Net.Mail;
 using System.ComponentModel;
+using Limilabs.Client.IMAP;
 
 namespace MallRoof
 {
     public class EmailService : IIdentityMessageService
     {
         public static bool error = false;
+
+        //public async Task SendAsync(IdentityMessage message)
+        //{
+        //    Microsoft.Exchange.WebServices.Data.ExchangeService service = new Microsoft.Exchange.WebServices.Data.ExchangeService(Microsoft.Exchange.WebServices.Data.ExchangeVersion.Exchange2007_SP1);
+
+        //    // In case you have a dodgy SSL certificate:
+        //    System.Net.ServicePointManager.ServerCertificateValidationCallback =
+        //                delegate (Object obj, System.Security.Cryptography.X509Certificates.X509Certificate certificate, System.Security.Cryptography.X509Certificates.X509Chain chain, System.Net.Security.SslPolicyErrors errors)
+        //                {
+        //                    return true;
+        //                };
+
+        //    service.Credentials = new Microsoft.Exchange.WebServices.Data.WebCredentials
+        //        (
+        //        ConfigurationManager.AppSettings["mailAccount"]
+        //        , ConfigurationManager.AppSettings["mailPassword"]
+        //        );
+        //    service.AutodiscoverUrl(message.Destination);
+        //    //service.Url = new Uri("https://exchangebox/EWS/Exchange.asmx");
+
+        //    Microsoft.Exchange.WebServices.Data.EmailMessage em = new Microsoft.Exchange.WebServices.Data.EmailMessage(service);
+        //    em.Subject = message.Subject;
+        //    em.Body = new Microsoft.Exchange.WebServices.Data.MessageBody(message.Body);
+        //    em.Sender = new Microsoft.Exchange.WebServices.Data.EmailAddress(ConfigurationManager.AppSettings["mailAccount"]);
+        //    em.ToRecipients.Add(new Microsoft.Exchange.WebServices.Data.EmailAddress(message.Destination));
+
+        //    // Send the email and put it into the SentItems:
+        //    em.SendAndSaveCopy(Microsoft.Exchange.WebServices.Data.WellKnownFolderName.SentItems);
+
+        //}
+
+
         public async Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
@@ -52,17 +85,31 @@ namespace MallRoof
             mailMessage.Body = message.Body;
 
 
+
+
             //var res = await client.SendMailAsync(mailMessage);
             client.SendCompleted += new
             SendCompletedEventHandler(SendCompletedCallback);
+            mailMessageC = mailMessage;
 
-            var task = Task.CompletedTask;
             
+            //var task = Task.CompletedTask;
+
 
             try
             {
                  //return 
                    await client.SendMailAsync(mailMessage);
+                //using (Imap imap = new Imap())
+                //{
+                //    imap.Connect(ConfigurationManager.AppSettings["iMap"]);     // or ConnectSSL for SSL
+                //    imap.UseBestLogin(ConfigurationManager.AppSettings["mailAccount"], ConfigurationManager.AppSettings["mailPassword"]);
+                    
+                //    FolderInfo sent = new CommonFolders(imap.GetFolders()).Sent;
+                //    imap.UploadMessage(sent, (Limilabs.Mail.IMail)mailMessageC);
+
+                //    imap.Close();
+                //}
             }
             catch
             {
@@ -72,6 +119,19 @@ namespace MallRoof
             await Task.CompletedTask;
             //return client.SendMailAsync("kai124@yandex.ru", message.Destination, message.Subject, message.Body);
 
+        }
+
+        static MailMessage mailMessageC;
+
+        static Limilabs.Mail.IMail FromMailToLMail(MailMessage mailMessage)
+        {
+            Limilabs.Mail.MailBuilder builder = new Limilabs.Mail.MailBuilder();
+            builder.Subject = mailMessage.Subject;
+            builder.Html = mailMessage.Body;
+            builder.From.Add(new Limilabs.Mail.Headers.MailBox(mailMessage.From.Address, mailMessage.From.DisplayName));
+            builder.To.Add(new Limilabs.Mail.Headers.MailBox(mailMessage.To.ToString(), ""));
+            Limilabs.Mail.IMail email = builder.Create();
+            return email;
         }
 
         private static void SendCompletedCallback(object sender, AsyncCompletedEventArgs e)
@@ -93,6 +153,16 @@ namespace MallRoof
             else
             {
                 Console.WriteLine("Message sent.");
+                using (Imap imap = new Imap())
+                {
+                    imap.Connect(ConfigurationManager.AppSettings["iMap"]);     // or ConnectSSL for SSL
+                    imap.UseBestLogin(ConfigurationManager.AppSettings["mailAccount"], ConfigurationManager.AppSettings["mailPassword"]);
+                    
+                    FolderInfo sent = new CommonFolders(imap.GetFolders()).Sent;
+                    //imap.UploadMessage(sent, (Limilabs.Mail.IMail) mailMessageC);
+                    imap.UploadMessage(sent, FromMailToLMail(mailMessageC));
+                    imap.Close();
+                }
             }
         }
 

@@ -43,5 +43,8 @@ namespace MallRoof.Models
 
         [Display(Name = "Город")]        
         public virtual City City { get; set; }
+
+        [Display(Name = "Цена за кватратный метр")]
+        public int Smprice { get; set; }
     }
 }

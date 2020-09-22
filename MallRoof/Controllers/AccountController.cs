@@ -89,7 +89,7 @@ namespace MallRoof.Controllers
             {
                 if (!await UserManager.IsEmailConfirmedAsync(user.Id))
                 {
-                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account-Resend");
+                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Подтвердите вашу почту!");
                     ViewBag.errorMessage = "Ваш Email должен быть подтержден";
                     return View("Error");
                 }
@@ -197,7 +197,7 @@ namespace MallRoof.Controllers
                     // Это пусть стоит. На будущее
                     //IdentityRole role = RoleManager.FindByName(model.Role);
                     // Добавляем Администратора и соискателя
-                    IdentityRole role = RoleManager.FindByName("Admin");
+                    IdentityRole role = RoleManager.FindByName("Landlord");
                     UserManager.AddToRole(user.Id.ToString(), role.Name);
 
                     role = RoleManager.FindByName("Tenant");

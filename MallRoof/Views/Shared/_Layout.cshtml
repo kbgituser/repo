@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    @Scripts.Render("~/bundles/gtag")
     <meta name="yandex-verification" content="05146922c712609c" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,7 +30,7 @@
                     <span class="icon-bar"></span>
 
                 </button>
-                @Html.ActionLink("Kenseler", "Index", "Premises", new { area = "" },
+                @Html.ActionLink("Kenseler", "Index", "Home", new { area = "" },
                new { @class = "navbar-brand text-uppercase text-primary" })
 
             </div>
@@ -56,6 +57,7 @@
                                 <li>@Html.ActionLink("Роли", "Index", "RolesAdmin")</li>
                                 <li>@Html.ActionLink("Пользователи", "Index", "Users")</li>
                                 <li>@Html.ActionLink("Города", "Index", "Cities")</li>
+                                <li>@Html.ActionLink("Центры", "Index", "Malls")</li>
                                 <li>@Html.ActionLink("Все предложения", "Index", "Proposals")</li>
                                 <li>@Html.ActionLink("Запросы соискателей", "Index", "Demands")</li>
                             </ul>

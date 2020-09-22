@@ -31,16 +31,21 @@
     </div>
 
     @*<div class="form-group">
-        <div class="col-md-10 col-md-offset-2 text-left">
-            @Html.RadioButtonFor(model => model.Role, "Landlord", new { id = "Landlord" }) <label for="Landlord">Арендодатель (Администратор центра)</label>
-            <br />
-            @Html.RadioButtonFor(model => model.Role, "Tenant" , new { id = "Tenant" }) <label for="Tenant">Соискатель</label>
-        </div>
-        
-    </div>*@
+            <div class="col-md-10 col-md-offset-2 text-left">
+                @Html.RadioButtonFor(model => model.Role, "Landlord", new { id = "Landlord" }) <label for="Landlord">Арендодатель (Администратор центра)</label>
+                <br />
+                @Html.RadioButtonFor(model => model.Role, "Tenant" , new { id = "Tenant" }) <label for="Tenant">Соискатель</label>
+            </div>
+
+        </div>*@
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-default" value="Зарегистрироваться" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-12">
+            <div class="p-3 mb-2 bg-danger text-white">После нажатия кнопки "Зарегистрироваться", Вам на указанную почту будет отправлено письмо. <br />Если в течении 5 минут, Вы не получите письмо, пожалуйста, проверьте в Вашей почте папку "Спам". Возможно письмо попадет в папку "Спам"</div>
         </div>
     </div>
 }

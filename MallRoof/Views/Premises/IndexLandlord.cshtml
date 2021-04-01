@@ -42,7 +42,8 @@
         </th>
         <th>
             @*@Html.DisplayNameFor(model => model.Premises.SingleOrDefault().Area)*@
-            @Html.ActionLink("Площадь", "IndexLandlord", new { order = ViewBag.AreaSortParam
+            @*@Html.ActionLink("Площадь", "IndexLandlord", new { order = ViewBag.AreaSortParam*@
+            @Html.ActionLink("Площадь", "Index", new { order = ViewBag.AreaSortParam
            ,
            mallId = Request.Params["MallId"]
             ,
@@ -65,7 +66,8 @@
 
         <th>
             @*@Html.DisplayNameFor(model => model.Premises.SingleOrDefault().Price)*@
-            @Html.ActionLink("Цена", "IndexLandlord", new { order = ViewBag.PriceSortParam
+            @*@Html.ActionLink("Цена", "IndexLandlord", new { order = ViewBag.PriceSortParam*@
+            @Html.ActionLink("Цена", "Index", new { order = ViewBag.PriceSortParam
            ,
            mallId = Request.Params["MallId"]
             ,
@@ -79,13 +81,13 @@
        })
             @Html.SortIdentifier(Request.Params["order"], "price")
             @*@if (ViewBag.PriceSortParam.Contains("desc"))
-                {
-                    <span class="glyphicon glyphicon-chevron-down"></span>
-                }
-                else
-                {
-                    <span class="glyphicon glyphicon-chevron-up"></span>
-                }*@
+        {
+            <span class="glyphicon glyphicon-chevron-down"></span>
+        }
+        else
+        {
+            <span class="glyphicon glyphicon-chevron-up"></span>
+        }*@
 
         </th>
         <th></th>

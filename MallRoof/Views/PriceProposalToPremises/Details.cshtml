@@ -1,0 +1,48 @@
+﻿@model MallRoof.Models.PriceProposalToPremise
+
+@{
+    ViewBag.Title = "Предложение от соискателя владельцу помещения";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div>
+    <h4>@ViewBag.Title</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Premise.Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Premise.Number)
+            @Html.ActionLink(Model.Premise.Number, "Details", "Premises", new { id = Model.PremiseId }, null)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comments)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ProposingUser.Phone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProposingUser.Phone)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Ценовые предложения соискателей", "IndexForMe")
+</p>

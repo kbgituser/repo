@@ -4,9 +4,13 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
+
 using Owin;
+
 using MallRoof.Models;
 using MallRoof.DAL;
+using Owin.Security.Providers.Instagram;
+using Owin.Security.Providers.Instagram.Provider;
 
 namespace MallRoof
 {
@@ -60,15 +64,40 @@ namespace MallRoof
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "365221681298519",
+               appSecret: "cbe1c73e8d5ab2257c17b8e119612995");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "796828373577-ds96as0khs20ardbia90gr5lb91dfqbj.apps.googleusercontent.com",
+                ClientSecret = "oAMl_INnlHbFR4Us1lZiiBSD"                
+            });
+
+
+            //fpNode.Owin.MailRuMiddleware.MailRuAuthenticationOptions mOptions = new fpNode.Owin.MailRuMiddleware.MailRuAuthenticationOptions();
+            //mOptions.AppId = "27b0fb0bbe5c4ad0be371e0ab8adfdcd";
+            //mOptions.AppSecret = "9c6653d13e5047418e57be5d758c4ad1";
+            //mOptions.AuthenticationMode = Microsoft.Owin.Security.AuthenticationMode.Passive;
+            //mOptions.Caption = "Kenseler";
+
+            //app.UseMailRuAuthentication(mOptions);
+            
+            //app.UseMailRuAuthentication("27b0fb0bbe5c4ad0be371e0ab8adfdcd", "9c6653d13e5047418e57be5d758c4ad1", "");
+
+            //var instagramOAuth2AuthenticationOptions = new InstagramAuthenticationOptions()
             //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            //    ClientId = ConfigurationManager.AppSettings["instagram.clientid"],
+            //    ClientSecret = ConfigurationManager.AppSettings["instagram.clientsecret"],
+            //    CallbackPath = new PathString(ConfigurationManager.AppSettings["instagram.redirecturi"]),
+            //    //Provider = new InstagramAuthenticationProvider()
+            //    //{
+            //    //    OnAuthenticated = async context => context.Identity.AddClaim(new Claim("access_token", context.AccessToken))
+            //    //},
+            //    SignInAsAuthenticationType = DefaultAuthenticationTypes.ExternalCookie
+            //};
+
+            //app.UseInstagramInAuthentication(instagramOAuth2AuthenticationOptions);
         }
     }
 }

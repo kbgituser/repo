@@ -15,93 +15,108 @@
     @*@Html.Hidden("MallId", @ViewBag.MallId)*@
     @*<input type="text" value=@ViewBag.MallId name="MallId" />*@
     @Html.HiddenFor(s=>s.MallId, new { Value = ViewBag.MallId })
-    <div class="form-horizontal">
-        <h4></h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Number, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Number, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Number, "", new { @class = "text-danger" })
-            </div>
+<div class="form-horizontal">
+    <h4></h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Number, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Number, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Number, "", new { @class = "text-danger" })
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Floor, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Floor, new { htmlAttributes = new { @class = "form-control allownumericwithoutdecimal" } })
-                @Html.ValidationMessageFor(model => model.Floor, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Area, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Area, new { htmlAttributes = new { @class = "form-control allownumericwithdecimal"} })
-                @Html.ValidationMessageFor(model => model.Area, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsLastFloor, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IsLastFloor)
-                    @Html.ValidationMessageFor(model => model.IsLastFloor, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.HasWindow, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @*@Html.EditorFor(model => model.HasWindow)*@
-                    @Html.CheckBoxFor(model => model.HasWindow, htmlAttributes: new { @checked = true })
-                    @Html.ValidationMessageFor(model => model.HasWindow, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" , style = "width:1000px;" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control allownumericwithoutdecimal" } })
-                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsSeen, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @*@Html.EditorFor(model => model.IsSeen)*@
-                    @Html.CheckBoxFor(model => model.IsSeen, htmlAttributes: new { @checked = true })
-                    @Html.ValidationMessageFor(model => model.IsSeen, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Создать" class="btn btn-default" />
-                @Html.ActionLink("Назад", "Index", null, new { @class = "btn btn-default" })
-            </div>
-            <div>
-                
-            </div>
-        </div>
-
     </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Floor, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Floor, new { htmlAttributes = new { @class = "form-control allownumericwithoutdecimal" } })
+            @Html.ValidationMessageFor(model => model.Floor, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Area, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Area, new { htmlAttributes = new { @class = "form-control allownumericwithdecimal" } })
+            @Html.ValidationMessageFor(model => model.Area, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.IsLastFloor, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.IsLastFloor)
+                @Html.ValidationMessageFor(model => model.IsLastFloor, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.HasWindow, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @*@Html.EditorFor(model => model.HasWindow)*@
+                @Html.CheckBoxFor(model => model.HasWindow, htmlAttributes: new { @checked = true })
+                @Html.ValidationMessageFor(model => model.HasWindow, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", style = "width:1000px;" } })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.InstaPhoto, htmlAttributes: new { @class = "control-label col-md-2" })
+        
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.InstaPhoto, new { htmlAttributes = new { @class = "form-control", style = "width:1000px;" } })
+            @Html.ValidationMessageFor(model => model.InstaPhoto, "", new { @class = "text-danger" })
+            <div>
+                Введите код ссылки поста инстаграмма. <br />
+                Смотрите инструкцию @Html.ActionLink("Здесь", "InstagramEmbedInstruction", "Home")
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control allownumericwithoutdecimal" } })
+            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.IsSeen, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @*@Html.EditorFor(model => model.IsSeen)*@
+                @Html.CheckBoxFor(model => model.IsSeen, htmlAttributes: new { @checked = true })
+                @Html.ValidationMessageFor(model => model.IsSeen, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Создать" class="btn btn-default" />
+            @Html.ActionLink("Назад", "Index", null, new { @class = "btn btn-default" })
+        </div>
+        <div>
+
+        </div>
+    </div>
+
+</div>
 }
 
 

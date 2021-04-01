@@ -22,6 +22,7 @@ namespace MallRoof.Controllers
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
 
+        
         public UsersController()
         {
             var userStore = new UserStore<User>(db);
@@ -29,8 +30,8 @@ namespace MallRoof.Controllers
             _userManager = ApplicationUserManager.CreateDefault(db);
             var roleStore = new RoleStore<IdentityRole>(db);
             _roleManager = new ApplicationRoleManager(roleStore);
-
         }
+        
         public ApplicationUserManager UserManager
         {
             get { return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();}
@@ -44,17 +45,20 @@ namespace MallRoof.Controllers
         }
 
         // GET: Users
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             return View(db.IdentityUsers.ToList());
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult RoleIndex()
         {
             return View(RoleManager.Roles);            
         }
 
         // GET: Users/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -70,6 +74,7 @@ namespace MallRoof.Controllers
         }
 
         // GET: Users/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -78,6 +83,7 @@ namespace MallRoof.Controllers
         // POST: Users/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         //public ActionResult Create([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName,FirstName,SurName,Phone")] User user)
@@ -105,6 +111,7 @@ namespace MallRoof.Controllers
         }
 
         // GET: Users/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -144,6 +151,7 @@ namespace MallRoof.Controllers
             return View(userRoleEdit);
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult AddRoleToUser(Guid UserId, Guid RoleId)
         {
             User user = UserManager.FindById(UserId.ToString());
@@ -159,6 +167,7 @@ namespace MallRoof.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         public void AddRoleToUser2(Guid UserId, Guid RoleId)
         {
             User user = UserManager.FindById(UserId.ToString());
@@ -166,7 +175,7 @@ namespace MallRoof.Controllers
             var result = UserManager.AddToRole(UserId.ToString(), role.Name);
         }
 
-
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteRoleFromUser(Guid UserId, Guid RoleId)
         {
             User user = UserManager.FindById(UserId.ToString());
@@ -187,6 +196,7 @@ namespace MallRoof.Controllers
         // POST: Users/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(
@@ -211,6 +221,7 @@ namespace MallRoof.Controllers
         }
 
         // GET: Users/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -226,6 +237,7 @@ namespace MallRoof.Controllers
         }
 
         // POST: Users/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
@@ -244,7 +256,7 @@ namespace MallRoof.Controllers
             }
             base.Dispose(disposing);
         }
-
+        [Authorize(Roles = "Admin")]
         public ActionResult CreateRole()
         {
             return View();
@@ -253,9 +265,9 @@ namespace MallRoof.Controllers
         // POST: Users/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public ActionResult CreateRole([Bind(Include = "Name")] IdentityRole role)
         {
 
@@ -269,6 +281,7 @@ namespace MallRoof.Controllers
             return View(role);
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult EditRole(string id)
         {
             if (id == null)
@@ -282,6 +295,7 @@ namespace MallRoof.Controllers
             }
             return View(role);
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditRole([Bind(Include = "Name")] IdentityRole role)
@@ -295,6 +309,7 @@ namespace MallRoof.Controllers
             return View(role);
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult RoleDelete(string id)
         {
             if (id == null)
@@ -311,6 +326,7 @@ namespace MallRoof.Controllers
         }
 
         // POST: Users/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult RoleDeleteConfirmed(string id)
@@ -320,9 +336,30 @@ namespace MallRoof.Controllers
             db.SaveChanges();
             return RedirectToAction("RoleIndex");
         }
-    }
 
-    
+        [Authorize]
+        public ActionResult EditProfile()
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            ViewBag.returnUrl = Request.UrlReferrer;
+            return View(user);            
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProfile([Bind(Include = "Id,FirstName,SurName,Phone")] User user, string returnUrl)
+        {
+            var editingUser = UserManager.FindById(user.Id);
+            editingUser.Phone = user.Phone;
+            editingUser.FirstName = user.FirstName;
+            editingUser.SurName= user.SurName;
+            db.Entry(editingUser).State = EntityState.Modified;
+            db.SaveChanges();
+            return Redirect(returnUrl);
+            //return View(editingUser);
+        }
+    }
 
 }
 

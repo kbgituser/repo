@@ -37,53 +37,60 @@
             @*@Html.DisplayNameFor(model => model.SingleOrDefault().EndDate)*@
             Дата окончания
         </th>
+        <th>Тип помещения</th>
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PriceFrom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PriceTo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AreaFrom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AreaTo)
-            </td>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PriceFrom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PriceTo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AreaFrom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AreaTo)
+        </td>
 
-            <td>
-                @if (!User.Identity.IsAuthenticated)
-                {
-                    @Html.ActionLink("Зарегистрироваться", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
-                    <span>/</span>
-                    @Html.ActionLink("Войти", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
-                }
-                else
-                {@Html.DisplayFor(modelItem => item.Phone)}
-
-
-            </td>
-            <td>
-                @*@Html.DisplayFor(modelItem => item.EndDate)*@
-                @item.EndDate.ToShortDateString()
-            </td>
-            <td>
-                @Html.ActionLink("Подробнее", "Details", new { id = item.DemandId })
-                @if (item.DemandStatus == MallRoof.Models.DemandStatus.Active)
-                {<span>| </span>@Html.ActionLink("Сделать предложение", "Create", "Proposals", new { demandId = item.DemandId }, null)}
-            else
+        <td>
+            @if (!User.Identity.IsAuthenticated)
             {
-                <br />
-                <span>Запрос не активен. Вы не можете сделать предложение!</span>
+                @Html.ActionLink("Зарегистрироваться", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+                <span>/</span>
+                @Html.ActionLink("Войти", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
             }
+            else
+            {@Html.DisplayFor(modelItem => item.Phone)}
 
-            </td>
-        </tr>
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.EndDate)*@
+            @item.EndDate.ToShortDateString()
+        </td>
+        <td>
+            @if (item.PremiseTypeId != null)
+            {@Html.DisplayFor(modelItem => item.PremiseType.Name)}
+        else
+        { <div>Невыбран</div>}
+        </td>
+        <td>
+            @Html.ActionLink("Подробнее", "Details", new { id = item.DemandId })
+            @if (item.DemandStatus == MallRoof.Models.DemandStatus.Active)
+            {<span>| </span>@Html.ActionLink("Сделать предложение", "Create", "Proposals", new { demandId = item.DemandId }, null)}
+        else
+        {
+            <br />
+            <span>Запрос не активен. Вы не можете сделать предложение!</span>
+        }
+
+        </td>
+
+    </tr>
     }
 
 </table>

@@ -91,10 +91,8 @@ namespace MallRoof
             client.SendCompleted += new
             SendCompletedEventHandler(SendCompletedCallback);
             mailMessageC = mailMessage;
-
             
             //var task = Task.CompletedTask;
-
 
             try
             {
@@ -197,9 +195,6 @@ namespace MallRoof
         //    }
         //}
     }
-
-
-    
 }
 
 public class SmsService : IIdentityMessageService

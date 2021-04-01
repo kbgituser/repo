@@ -93,5 +93,11 @@ namespace MallRoof.Models
         public DateTime EndDate { get; set; }
         [Display(Name = "Статус")]
         public DemandStatus DemandStatus { get;set;}
+
+
+        [Display(Name = "Тип помещения")]
+        public Guid? PremiseTypeId { get; set; }
+        [Display(Name = "Тип помещения")]
+        public virtual PremiseType PremiseType { get; set; }
     }
 }

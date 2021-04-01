@@ -60,6 +60,7 @@
                                 <li>@Html.ActionLink("Центры", "Index", "Malls")</li>
                                 <li>@Html.ActionLink("Все предложения", "Index", "Proposals")</li>
                                 <li>@Html.ActionLink("Запросы соискателей", "Index", "Demands")</li>
+                                <li>@Html.ActionLink("Типы помещений", "Index", "PremiseTypes")</li>
                             </ul>
                         </li>
                     }
@@ -74,9 +75,10 @@
                                 <li>@Html.ActionLink("Мои центры", "Index", "Malls", new { getMine = true }, null)</li>
                                 <li>@Html.ActionLink("Помещения", "Index", "Premises")</li>
                                 <li>@Html.ActionLink("Мои помещения", "Index", "Premises", new { getMine = true }, null)</li>
-                                <li>@Html.ActionLink("Запросы соискателей", "Index", "Demands")</li>
-                                <li>@Html.ActionLink("Мои запросы", "Index", "Demands", new { getMine = true }, null)</li>
+                                <li>@Html.ActionLink("Ищу помещение", "Index", "Demands")</li>
+                                <li>@Html.ActionLink("Я ищу", "Index", "Demands", new { getMine = true }, null)</li>
                                 <li>@Html.ActionLink("Мои предложения", "Index", "Proposals", new { getMine = true }, null)</li>
+                                <li>@Html.ActionLink("Мой профиль", "EditProfile", "Users")</li>
                             </ul>
                         </li>
                     }
@@ -85,7 +87,7 @@
                     {
                         <li>@Html.ActionLink("Центры", "Index", "Malls")</li>
                         <li>@Html.ActionLink("Помещения", "Index", "Premises")</li>
-                        <li>@Html.ActionLink("Запросы соискателей", "Index", "Demands")</li>
+                        <li>@Html.ActionLink("Ищу помещение", "Index", "Demands")</li>
                     }
 
                     @*@if (User.IsInRole("Tenant"))
@@ -115,9 +117,11 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer class="text-center">
-            <p>&copy; @DateTime.Now.Year - Управление помещением</p>
-        </footer>
+        
+            <footer class="text-center">
+                <h5 class="text-danger">Если вы увидели где нибудь ошибку или у ВАС есть какое либо ПРЕДЛОЖЕНИЕ, пожалуйста, напишите на info@kenseler.kz</h5>
+                <p>&copy; @DateTime.Now.Year - Управление помещением</p>                
+            </footer>        
     </div>
     @RenderSection("scripts", required: false)
     <script type="text/javascript">

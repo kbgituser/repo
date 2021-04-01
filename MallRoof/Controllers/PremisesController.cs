@@ -48,6 +48,15 @@ namespace MallRoof.Controllers
             private set { _roleManager = value; }
         }
 
+        public List<City> GetCities()
+        {
+            var cities = db.Cities.OrderBy(c => c.Name).ToList();
+            var nur = cities.FirstOrDefault(c => c.Name.Contains("Нур-Султан"));
+            cities.Remove(nur);
+            cities.Insert(0, nur);
+            return cities;
+        }
+
         // GET: Premises
         public ActionResult Index(string mallId, string price, string area, string haswindow, string priceorder
             , string order, string getMine, string forAdmin
@@ -65,8 +74,7 @@ namespace MallRoof.Controllers
             }
             PremisesMallListModel premisesMallListModel = new PremisesMallListModel();
             
-            var premises = db.Premises.AsQueryable();
-            
+            var premises = db.Premises.AsQueryable();            
 
             int priceint;
             if (Int32.TryParse(price, out priceint))
@@ -135,7 +143,7 @@ namespace MallRoof.Controllers
 
             ViewBag.PriceSortParam = order == "price" ? "price_desc" : "price";
             ViewBag.AreaSortParam = order == "area" ? "area_desc" : "area";
-            premisesMallListModel.Cities = db.Cities.ToList();
+            premisesMallListModel.Cities = GetCities();
 
             if (user != null && bool.TrueString == getMine)
             {
@@ -246,6 +254,14 @@ namespace MallRoof.Controllers
                 return View("DetailsLandlord", premise);
             }
 
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            if (user != null)
+            {
+                if (premise.Mall.UserId == user.Id)
+                    return View("DetailsLandlord", premise);
+            }
+            
+
             return View(premise);
         }
 
@@ -263,7 +279,7 @@ namespace MallRoof.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PremiseId,Number,Floor,Area,IsLastFloor,HasWindow,Description,Price,IsSeen,MallId")] Premise premise)
+        public ActionResult Create([Bind(Include = "PremiseId,Number,Floor,Area,IsLastFloor,HasWindow,Description,Price,IsSeen,MallId,InstaPhoto")] Premise premise)
         {
             if (ModelState.IsValid)
             {
@@ -314,7 +330,7 @@ namespace MallRoof.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PremiseId,Number,Floor,Area,IsLastFloor,HasWindow,Description,Price,IsSeen,MallId")] Premise premise)
+        public ActionResult Edit([Bind(Include = "PremiseId,Number,Floor,Area,IsLastFloor,HasWindow,Description,Price,IsSeen,MallId,InstaPhoto")] Premise premise)
         {
             if (ModelState.IsValid)
             {

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<MallRoof.Models.PriceProposalToPremise>
+
+@{
+    ViewBag.Title = "Ценовые предложения от соискателей";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+<table class="table">
+    <tr>        
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comments)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comments)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Premise.Number)
+            @Html.ActionLink(item.Premise.Number, "Details", "Premises", new { id = item.PremiseId }, null) |
+        </td>
+        <td>
+            
+            @Html.ActionLink("Детали", "Details", new { id = item.PriceProposalToPremiseId }) |
+            
+        </td>
+    </tr>
+}
+</table>

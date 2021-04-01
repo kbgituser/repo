@@ -28,7 +28,9 @@ namespace MallRoof.DAL
         public System.Data.Entity.DbSet<MallRoof.Models.User> IdentityUsers { get; set; }
         public DbSet<City> Cities { get; set; }
         public System.Data.Entity.DbSet<MallRoof.Models.Demand> Demands { get; set; }
-        public System.Data.Entity.DbSet<MallRoof.Models.Proposal> Proposals { get; set; }
+        public System.Data.Entity.DbSet<MallRoof.Models.Proposal> Proposals { get; set; }        
+        public System.Data.Entity.DbSet<MallRoof.Models.PremiseType> PremiseTypes { get; set; }
+        public System.Data.Entity.DbSet<MallRoof.Models.PriceProposalToPremise> PriceProposalToPremises { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -91,8 +93,14 @@ namespace MallRoof.DAL
                 //.HasForeignKey(p => p.PremiseId)
                 .WillCascadeOnDelete(false)
                 ;
-        }
 
-        
+            modelBuilder.Entity<PriceProposalToPremise>()
+                //.HasOptional<Premise>(u => u.Premise)
+                .HasRequired<Premise>(u => u.Premise)
+                .WithMany(u => u.PriceProposalToPremises)
+                .HasForeignKey(p => p.PremiseId)
+                .WillCascadeOnDelete(false)
+                ;
+        }        
     }
 }

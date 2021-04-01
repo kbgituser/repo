@@ -343,6 +343,31 @@ namespace MallRoof.Controllers
             return cities;
         }
 
+        [Authorize(Roles = "Admin")]
+        public ActionResult AssignUser(Guid mallId)
+        {
+            
+            var mall = db.Malls.FirstOrDefault(m => m.MallId == mallId);
+            if (mall!=null)
+            {
+                return View(mallId);
+            }
+            return RedirectToAction("Edit", "Malls", new { maillId = mallId });
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public ActionResult AssignUser(string userName, Guid mallId)
+        {
+            var user = UserManager.FindByName(userName);
+            var mall = db.Malls.FirstOrDefault(m => m.MallId == mallId);
+            if (user != null && mall != null)
+            {
+                mall.UserId = user.Id;
+            }
+            return RedirectToAction("Edit", "Malls", new { maillId = mallId });
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

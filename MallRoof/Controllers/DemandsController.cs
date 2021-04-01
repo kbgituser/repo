@@ -153,6 +153,7 @@ namespace MallRoof.Controllers
             demand.EndDate = DateTime.Now.AddDays(demandDuration);
             demand.HasWindow = true;
             ViewBag.Cities = GetCities();
+            ViewBag.PremiseTypes = db.PremiseTypes;
             return View(demand);
         }
 
@@ -162,9 +163,10 @@ namespace MallRoof.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DemandId,PriceFrom,PriceTo,AreaFrom,AreaTo,Message,Phone,CreateDate,EndDate,CityId,HasWindow")] Demand demand)
+        public ActionResult Create([Bind(Include = "DemandId,PriceFrom,PriceTo,AreaFrom,AreaTo,Message,Phone,CreateDate,EndDate,CityId,HasWindow,PremiseTypeId")] Demand demand)
         {
             ViewBag.Cities = GetCities();
+            ViewBag.PremiseTypes = db.PremiseTypes;
             if (ModelState.IsValid)
             {
                 if (!CheckEndDate(demand.EndDate))
@@ -180,7 +182,7 @@ namespace MallRoof.Controllers
                     demand.UserId = user.Id;
                 }
                 demand.CreateDate = DateTime.Now;
-                demand.DemandStatus = DemandStatus.Created;
+                demand.DemandStatus = DemandStatus.Created;                
                 db.Demands.Add(demand);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -214,6 +216,7 @@ namespace MallRoof.Controllers
                 return HttpNotFound();
             }
             ViewBag.Cities = GetCities();
+            ViewBag.PremiseTypes = db.PremiseTypes;
             var user = UserManager.FindById(User.Identity.GetUserId());
             if ((user.Id != demand.UserId && !User.IsInRole("Admin"))
                 //||(demand.DemandStatus != DemandStatus.Created)
@@ -256,10 +259,11 @@ namespace MallRoof.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult 
-            Edit([Bind(Include = "DemandId,PriceFrom,PriceTo,AreaFrom,AreaTo,Message,Phone,EndDate,CityId,HasWindow", Exclude = "UserId,TenantUser,PossibleAddress,CreateDate,Proposals")] Demand demand)
+            Edit([Bind(Include = "DemandId,PriceFrom,PriceTo,AreaFrom,AreaTo,Message,Phone,EndDate,CityId,HasWindow,PremiseTypeId", Exclude = "UserId,TenantUser,PossibleAddress,CreateDate,Proposals")] Demand demand)
             
         {
             ViewBag.Cities = GetCities();
+            ViewBag.PremiseTypes = db.PremiseTypes;
             if (ModelState.IsValid)
             {
                 if (!CheckEndDate(demand.EndDate))
@@ -278,6 +282,7 @@ namespace MallRoof.Controllers
                 demandInDB.EndDate = demand.EndDate;
                 demandInDB.CityId = demand.CityId;
                 demandInDB.HasWindow = demand.HasWindow;
+                demandInDB.PremiseTypeId = demand.PremiseTypeId;
 
                 var user = UserManager.FindById(User.Identity.GetUserId());
                 //if (user != null)

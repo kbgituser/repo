@@ -21,6 +21,9 @@ namespace MallRoof.Models
         public Guid MallId { get; set; }
         [Display(Name = "Торговый центр")]
         public virtual Mall Mall { get; set; }
+
+        public virtual ICollection<PriceProposalToPremise> PriceProposalToPremises { get; set; }
+
         [RegularExpression("([1-9][0-9]*.?[0-9]*)", ErrorMessage = "Можно вводить только целое или дробное число")]
         [Display(Name = "Площадь")]
         public double Area { get; set; }
@@ -43,6 +46,27 @@ namespace MallRoof.Models
         [Display(Name = "Цена")]
         public double Price { get; set; }
         //        public bool Free { get; set; }
+
+        [Display(Name = "Фотография с инстаграмма")]
+        [DataType(DataType.MultilineText)]
+        [System.Web.Mvc.AllowHtml]
+        public string InstaPhoto {
+            get;set;            
+        }
+
+        //public string GetInstaPhoto
+        //{
+        //    get {
+        //        return GetInstaPhotoProcessed();
+        //    }
+        //}
+
+        //public string GetInstaPhotoProcessed()
+        //{
+        //    string res = InstaPhoto.Replace("(@", "(@@");
+        //    return res;
+        //}
+
         public virtual ICollection<PremiseCalendar> PremiseCalendars { get; set; }
         [Display(Name = "Фотографии")]
         public virtual ICollection<Photo> Photos { get; set; }
@@ -50,6 +74,8 @@ namespace MallRoof.Models
         public virtual ICollection<Proposal> Proposals { get; set; }
         [Display(Name = "Видимость")]
         public bool IsSeen { get; set; }
+
+
 
         public bool IsFree()
         {
@@ -65,5 +91,7 @@ namespace MallRoof.Models
             }
             return "";
         }
+
+
     }
 }

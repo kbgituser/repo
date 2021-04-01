@@ -11,6 +11,21 @@
     <hr />
     <dl class="dl-horizontal col-md-6">
         <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PremiseType)
+        </dt>
+
+        <dd>
+            @if (Model.PremiseTypeId != null)
+            {@Html.DisplayFor(model => model.PremiseType.Name)}
+            else { <div>Неуказан</div> }  </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.PriceFrom)
         </dt>
 

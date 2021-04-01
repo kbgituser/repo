@@ -14,7 +14,7 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace MallRoof.Controllers
 {
-    
+    [RequireHttps]
     public class HomeController : Controller
     {
         MallContext context = new MallContext();
@@ -61,6 +61,11 @@ namespace MallRoof.Controllers
         public ActionResult Instruction()
         {
             //ViewBag.Message = "Your contact page.";
+            return View();
+        }
+
+        public ActionResult InstagramEmbedInstruction()
+        {
             return View();
         }
 

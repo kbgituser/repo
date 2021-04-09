@@ -425,9 +425,6 @@
     <Compile Include="Controllers\MallsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PremisesController.cs" />
-    <Compile Include="Controllers\PremiseTypesController.cs" />
-    <Compile Include="Controllers\PriceProposalToPremisesController.cs" />
-    <Compile Include="Controllers\ProposalsController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -594,6 +591,10 @@
     <Compile Include="Migrations\202011051051377_premiseProposal2.cs" />
     <Compile Include="Migrations\202011051051377_premiseProposal2.Designer.cs">
       <DependentUpon>202011051051377_premiseProposal2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104090626452_premisetype.cs" />
+    <Compile Include="Migrations\202104090626452_premisetype.Designer.cs">
+      <DependentUpon>202104090626452_premisetype.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -924,6 +925,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011051051377_premiseProposal2.resx">
       <DependentUpon>202011051051377_premiseProposal2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104090626452_premisetype.resx">
+      <DependentUpon>202104090626452_premisetype.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

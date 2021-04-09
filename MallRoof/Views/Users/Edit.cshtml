@@ -20,8 +20,8 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                        <br />
+                        @*@Html.DisplayFor(modelItem => item.Name)
+                        <br />*@
                         @item.Name
                     </td>
                     <td>@Html.ActionLink("Удалить", "DeleteRoleFromUser", new { UserId = Model.User.Id, RoleId = item.Id })</td>
@@ -42,8 +42,8 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                        <br />
+                        @*@Html.DisplayFor(modelItem => item.Name)
+                        <br />*@
                         @item.Name
                     </td>
                     <td>@Html.ActionLink("Добавить пользователя в роль", "AddRoleToUser", new { UserId = Model.User.Id, RoleId = item.Id })</td>

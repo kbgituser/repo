@@ -13,7 +13,7 @@ namespace MallRoof.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid PremiseId { get; set; }
-        [Display(Name ="Номер помещения")]
+        [Display(Name = "Номер помещения")]
         public string Number { get; set; }
         [Display(Name = "Этаж")]
         [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Можно вводить только цифры")]
@@ -39,7 +39,7 @@ namespace MallRoof.Models
         {
             get { return HasWindow ? "Да" : "Нет"; }
         }
-        
+
         [Display(Name = "Описание")]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
@@ -51,7 +51,7 @@ namespace MallRoof.Models
         [DataType(DataType.MultilineText)]
         [System.Web.Mvc.AllowHtml]
         public string InstaPhoto {
-            get;set;            
+            get; set;
         }
 
         //public string GetInstaPhoto
@@ -75,13 +75,15 @@ namespace MallRoof.Models
         [Display(Name = "Видимость")]
         public bool IsSeen { get; set; }
 
-
-
         public bool IsFree()
         {
             var result = !PremiseCalendars.Where(c => c.DateFrom <= DateTime.Now && DateTime.Now <= c.DateTo).Any();
             return result;
         }
+        [Display(Name = "Тип помещения")]
+        public Guid PremiseTypeId { get; set; }
+        [Display(Name = "Тип помещения")]
+        public virtual PremiseType PremiseType { get; set; }
 
         public string FirstPhoto()
         {
@@ -91,7 +93,5 @@ namespace MallRoof.Models
             }
             return "";
         }
-
-
     }
 }

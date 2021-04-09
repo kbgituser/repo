@@ -97,13 +97,20 @@ namespace MallRoof.Controllers
                 //var result = userManager.Create(user, password);
                 user.UserName = user.Email;
                 var result = this.UserManager.Create(user, password);
+                if (result.Succeeded)
+                {
+                    //var adminRole = db.Roles.Where(r => r.Name == "Admin").FirstOrDefault();
+                    var enteredUser = UserManager.FindByEmail(user.Email);
+                    UserManager.AddToRole(enteredUser.Id.ToString(), "Landlord");
+                    db.SaveChanges();
+                }
+                else
+                {
+                    ModelState.AddModelError("", result.Errors.FirstOrDefault());
+                    return View(user);
+                }
+
                 
-
-                //var adminRole = db.Roles.Where(r => r.Name == "Admin").FirstOrDefault();
-                var enteredUser =  UserManager.FindByEmail(user.Email);
-                UserManager.AddToRole(enteredUser.Id.ToString(), "Landlord");
-
-                db.SaveChanges();
                 return RedirectToAction("Index","Users");
             }
 

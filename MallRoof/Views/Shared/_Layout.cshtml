@@ -36,14 +36,6 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @*<li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
-                    @*<li>@Html.ActionLink("О проекте", "About", "Home")</li>
-                        <li>@Html.ActionLink("Как пользоваться", "Instruction", "Home")</li>
-                        <li>@Html.ActionLink("Центры", "Index", "Malls")</li>
-                        <li>@Html.ActionLink("Помещения", "Index", "Premises")</li>
-                        <li>@Html.ActionLink("Спрос от соискателей", "Index", "Demands")</li>*@
 
                     <li>@Html.ActionLink("О проекте", "About", "Home")</li>
                     <li>@Html.ActionLink("Как пользоваться", "Instruction", "Home")</li>
@@ -65,10 +57,30 @@
                         </li>
                     }
 
-
-                    @if (User.IsInRole("Landlord"))
+                    @if (User.IsInRole("LandLord"))
                     {
                         <li class="dropdown">
+                            <a href="#" class="dropdown-toggle collapse" data-toggle="dropdown">Я арендодатель<b class="caret"></b></a>
+                            <ul class="dropdown-menu navbar" role="menu">
+                                <li>@Html.ActionLink("Мои центры", "Index", "Malls", new { getMine = true }, null)</li>
+                                <li>@Html.ActionLink("Мои помещения", "Index", "Premises", new { getMine = true }, null)</li>
+                                <li>@Html.ActionLink("Что ищет соискатель", "Index", "Demands")</li>
+                                <li>@Html.ActionLink("Мои предложения", "Index", "Proposals", new { getMine = true }, null)</li>
+                                <li>@Html.ActionLink("Мои предложения соискателю", "Index", "Proposals", new { getMine = true }, null)</li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle collapse" data-toggle="dropdown">Я соискатель<b class="caret"></b></a>
+                            <ul class="dropdown-menu navbar" role="menu">
+                                <li>@Html.ActionLink("Центры", "Index", "Malls")</li>                                
+                                <li>@Html.ActionLink("Помещения", "Index", "Premises")</li>                                
+                                <li>@Html.ActionLink("Что я ищу", "Index", "Demands", new { getMine = true }, null)</li>
+                                <li>@Html.ActionLink("Что ищут другие соискатели", "Index", "Demands")</li>
+                            </ul>
+                        </li>
+
+                        @*<li class="dropdown">
                             <a href="#" class="dropdown-toggle collapse" data-toggle="dropdown">Пользователь<b class="caret"></b></a>
                             <ul class="dropdown-menu navbar" role="menu">
                                 <li>@Html.ActionLink("Центры", "Index", "Malls")</li>
@@ -80,7 +92,7 @@
                                 <li>@Html.ActionLink("Мои предложения", "Index", "Proposals", new { getMine = true }, null)</li>
                                 <li>@Html.ActionLink("Мой профиль", "EditProfile", "Users")</li>
                             </ul>
-                        </li>
+                        </li>*@
                     }
 
                     @if (!User.Identity.IsAuthenticated)
@@ -91,11 +103,11 @@
                     }
 
                     @*@if (User.IsInRole("Tenant"))
-                        {
-                            <li>@Html.ActionLink("Запросы", "Index", "Demands")</li>
-                            <li>@Html.ActionLink("Мои запросы", "Index", "Demands", new { getMine = true }, null)</li>
-                            <li>@Html.ActionLink("Новый запрос", "Create", "Demands")</li>
-                        }*@
+        {
+            <li>@Html.ActionLink("Запросы", "Index", "Demands")</li>
+            <li>@Html.ActionLink("Мои запросы", "Index", "Demands", new { getMine = true }, null)</li>
+            <li>@Html.ActionLink("Новый запрос", "Create", "Demands")</li>
+        }*@
 
                 </ul>
                 @Html.Partial("_LoginPartial")

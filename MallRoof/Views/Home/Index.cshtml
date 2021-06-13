@@ -6,16 +6,17 @@
     <h1 class="text-center">Добро пожаловать на KENSELER.KZ!</h1>
     <p class="lead">Если вы Арендодатель, вы можете оставить ваши объявления о свободных помещениях в неограниченном количестве, а так же отправить ценовое предложение на запрос от соискателя</p>
     <p class="lead">Если вы Соискатель, вы можете оставить ваш запрос на помещение на этом сайте</p>
+    <p class="lead">Интернет площадка KENSELER.KZ является БЕСПЛАТНОЙ!</p>
 </div>
 
 <div class="row">
     <div class="col-md-4 col-md-offset-1">
         <h2>Помещения</h2>
         <p>Найдите подходящее офис помещение</p>
-        @Html.ActionLink("Найти офис помещение", "Index", "Premises", null, new { @class = "btn btn-success" })
+        @Html.ActionLink("Найти помещение", "Index", "Premises", null, new { @class = "btn btn-success" })
     </div>
     <div class="col-md-6">
-        <h2>Запросы соискателей офисов</h2>
+        <h2>Запросы соискателей помещений</h2>
         <p>Оставьте запрос на помещение. После арендодатели отправят на ваш запрос свои ценовые предложения. Вы сможете выбрать наиболее подходящее предложение.</p>
         @Html.ActionLink("Запросы на помещение", "Index", "Demands", null, new { @class = "btn btn-success" })
         @Html.ActionLink("Оставьте Ваш запрос", "Create", "Demands", null, new { @class = "btn btn-default" })

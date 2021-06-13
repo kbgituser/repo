@@ -6,6 +6,34 @@ using System.Web;
 
 namespace MallRoof.Models
 {
+    public enum TReqStatus
+    {
+        [Description("Созданый")]
+        Created = 0,
+        [Description("Активный")]
+        Active = 1,
+        [Description("Отказаный")]
+        Rejected = 2,
+        [Description("Выбранный")]
+        Selected = 3,
+        [Description("Выполненный")]
+        Done = 4
+    }
+
+    public enum TOfferStatus
+    {
+        [Description("Созданый")]
+        Created = 0,
+        [Description("Активный")]
+        Active = 1,
+        [Description("Отказаный")]
+        Rejected = 2,
+        [Description("Выбранный")]
+        Selected = 3,
+        [Description("Выполненный")]
+        Done = 4
+    }
+
     public enum DemandStatus
     {
         [Description("Созданый")]

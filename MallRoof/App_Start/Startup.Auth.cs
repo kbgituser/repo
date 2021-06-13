@@ -4,9 +4,13 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
+
 using Owin;
+
 using MallRoof.Models;
 using MallRoof.DAL;
+using Owin.Security.Providers.Instagram;
+using Owin.Security.Providers.Instagram.Provider;
 
 namespace MallRoof
 {
@@ -60,15 +64,9 @@ namespace MallRoof
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+
         }
     }
 }

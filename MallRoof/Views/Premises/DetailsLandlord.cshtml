@@ -73,16 +73,53 @@
 
     </dl>
 </div>
-<h4>Предложения</h4>
+<hr />
+<h4>Предложения этого помещения соискателям от меня</h4>
 @foreach (var proposal in Model.Proposals)
-{    
+{
     <span>@proposal.Premise.Mall.Name</span>
     <span>@proposal.Premise.Area</span>
     <span>@proposal.Premise.Number</span>
-    @Html.ActionLink("Подробнее", "Details", "Proposals", new {id=proposal.ProposalId }, null)
+    @Html.ActionLink("Подробнее", "Details", "Proposals", new { id = proposal.ProposalId }, null)
     <br />
 }
+<hr />
+<h4>Ценовые предложения на это помещение мне от соискателей</h4>
+<div>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PriceProposalToPremises.FirstOrDefault().Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PriceProposalToPremises.FirstOrDefault().Comments)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.PriceProposalToPremises)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comments)
+                </td>
+                <td>
+                    @Html.ActionLink("Детали", "Details", "PriceProposalToPremises", new { id = item.PriceProposalToPremiseId }, null)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<hr />
 <h4>Фотографии</h4>
+<div class="col-md-4 col-md-offset-4">
+    @Html.Raw(Model.InstaPhoto)
+</div>
+
 @RenderPage("~/Views/Shared/PhotosView.cshtml")
 <p>
     @Html.ActionLink("Назад к списку", "Index")

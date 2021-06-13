@@ -366,6 +366,8 @@ namespace MallRoof.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
+            // https://stackoverflow.com/questions/20737578/asp-net-sessionid-owin-cookies-do-not-send-to-browser
+            Session["Workaround"] = 0;
             // Request a redirect to the external login provider
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
@@ -463,6 +465,12 @@ namespace MallRoof.Controllers
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
+                        IdentityRole role = RoleManager.FindByName("Landlord");
+                        UserManager.AddToRole(user.Id.ToString(), role.Name);
+
+                        role = RoleManager.FindByName("Tenant");
+                        UserManager.AddToRole(user.Id.ToString(), role.Name);
+
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         return RedirectToLocal(returnUrl);
                     }

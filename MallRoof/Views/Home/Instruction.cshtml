@@ -5,6 +5,8 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <p class="text-center">Инструкции по работе с сайтом.</p>
 
+<a target="_blank" href="~/Instruction/Instructions.docx">Скачайте инструкцию</a>
+
 <h3 class="text-center">Регистрация пользователя</h3>
 
 
@@ -38,11 +40,11 @@
         <br />
         <img src="~/Images/mycenters.png" />
         <br />
-        Создайте ваш «центр» с помощью кнопки @Html.ActionLink("Новый центр", "Create","Malls", null, new { @class = "btn btn-info" })
+        Создайте ваш «центр» с помощью кнопки @Html.ActionLink("Новый центр", "Create", "Malls", null, new { @class = "btn btn-info" })
         <br />
         <img src="~/Images/NewCenter2.png" />
         <hr />
-        <img src="~/Images/NewMall.png" class="img-responsive center-block"/>
+        <img src="~/Images/NewMall.png" class="img-responsive center-block" />
         <br />
         Снова зайдите в меню «Мои центры» и списке "Мои центры" создайте помещение нажав <span class="btn-link">Добавить помещение к этому центру</span>.
         <hr />
@@ -70,14 +72,14 @@
         У соискателей есть возможность создавать ценовые @Html.ActionLink("запросы", "Index", "Demands", new { getMine = true }) , на которые позже арендодатели будут отправлять ценовые предложения.
         <br />
         Создание ценового запроса.<br />
-                                  <ol>
-                                      <li>Нужно войти под своей учетной записью
-                                      <li>Войти в меню Пользователь -> Мои запросы
-                                      <li>Нажать на кнопку "Создать новый запрос"
-                                      <li>Заполнить поля в форме.
-                                   </ol>
-                                  <p class="text-left">Смотрите пример на картинке ниже</p>
-       <img src="~/Images/NewDemand2.png" class="img-responsive center-block" />
+        <ol>
+            <li>Нужно войти под своей учетной записью
+            <li>Войти в меню Пользователь -> Мои запросы
+            <li>Нажать на кнопку "Создать новый запрос"
+            <li>Заполнить поля в форме.
+        </ol>
+        <p class="text-left">Смотрите пример на картинке ниже</p>
+        <img src="~/Images/NewDemand2.png" class="img-responsive center-block" />
         <br />
         После создания ценового запроса, обязательно нужно Активировать.
         После активации ценового запроса его нельзя редактировать.

@@ -265,7 +265,6 @@ C:\Mine\mallroof\MallRoof\obj\Debug\MallRoof.Migrations.demandCity.resources
 C:\Mine\mallroof\MallRoof\obj\Debug\MallRoof.Migrations.demandCity1.resources
 C:\Mine\mallroof\MallRoof\obj\Debug\MallRoof.Migrations.demand_window.resources
 C:\Mine\mallroof\MallRoof\obj\Debug\MallRoof.Migrations.mall_price.resources
-C:\Mine\mallroof\MallRoof\obj\Debug\MallRoof.Migrations.PremiseType.resources
 C:\Mine\mallroof\MallRoof\obj\Debug\MallRoof.Migrations.instagramphoto.resources
 C:\Mine\mallroof\MallRoof\obj\Debug\MallRoof.Migrations.premiseProposal.resources
 C:\Mine\mallroof\MallRoof\obj\Debug\MallRoof.Migrations.premiseProposal2.resources
@@ -458,3 +457,4 @@ C:\Mine\mallroof\MallRoof\bin\Microsoft.Owin.Security.OAuth.xml
 C:\Mine\mallroof\MallRoof\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Mine\mallroof\MallRoof\bin\ru\Microsoft.AspNet.Identity.Core.resources.dll
 C:\Mine\mallroof\MallRoof\obj\Debug\MallRoof.csproj.CopyComplete
+C:\Mine\mallroof\MallRoof\obj\Debug\MallRoof.Migrations.premisetype.resources

@@ -592,9 +592,9 @@
     <Compile Include="Migrations\202011051051377_premiseProposal2.Designer.cs">
       <DependentUpon>202011051051377_premiseProposal2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202104090626452_premisetype.cs" />
-    <Compile Include="Migrations\202104090626452_premisetype.Designer.cs">
-      <DependentUpon>202104090626452_premisetype.cs</DependentUpon>
+    <Compile Include="Migrations\202106271057215_premisetype.cs" />
+    <Compile Include="Migrations\202106271057215_premisetype.Designer.cs">
+      <DependentUpon>202106271057215_premisetype.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -618,6 +618,8 @@
     <Compile Include="Models\Proposal.cs" />
     <Compile Include="Models\ProposalCreateModel.cs" />
     <Compile Include="Models\SitemapNode.cs" />
+    <Compile Include="Models\TOffer.cs" />
+    <Compile Include="Models\TReq.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserMall.cs" />
     <Compile Include="Models\UserRoleEdit.cs" />
@@ -914,9 +916,9 @@
     <EmbeddedResource Include="Migrations\202007231148082_mall_price.resx">
       <DependentUpon>202007231148082_mall_price.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009280901070_PremiseType.resx">
+    <!--<EmbeddedResource Include="Migrations\202009280901070_PremiseType.resx">
       <DependentUpon>202009280901070_PremiseType.cs</DependentUpon>
-    </EmbeddedResource>
+    </EmbeddedResource>-->
     <EmbeddedResource Include="Migrations\202010070908407_instagramphoto.resx">
       <DependentUpon>202010070908407_instagramphoto.cs</DependentUpon>
     </EmbeddedResource>
@@ -926,8 +928,8 @@
     <EmbeddedResource Include="Migrations\202011051051377_premiseProposal2.resx">
       <DependentUpon>202011051051377_premiseProposal2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104090626452_premisetype.resx">
-      <DependentUpon>202104090626452_premisetype.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202106271057215_premisetype.resx">
+      <DependentUpon>202106271057215_premisetype.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

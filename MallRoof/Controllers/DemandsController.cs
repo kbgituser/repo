@@ -131,6 +131,7 @@ namespace MallRoof.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Demand demand = db.Demands.Find(id);
+            db.Entry(demand).Collection(p => p.Proposals).Load();
             if (demand == null)
             {
                 return HttpNotFound();

@@ -64,15 +64,15 @@ namespace MallRoof
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            app.UseFacebookAuthentication(
-               appId: "365221681298519",
-               appSecret: "cbe1c73e8d5ab2257c17b8e119612995");
+            //app.UseFacebookAuthentication(
+            //   appId: "365221681298519",
+            //   appSecret: "cbe1c73e8d5ab2257c17b8e119612995");
 
-            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            {
-                ClientId = "796828373577-ds96as0khs20ardbia90gr5lb91dfqbj.apps.googleusercontent.com",
-                ClientSecret = "oAMl_INnlHbFR4Us1lZiiBSD"                
-            });
+            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            //{
+            //    ClientId = "796828373577-ds96as0khs20ardbia90gr5lb91dfqbj.apps.googleusercontent.com",
+            //    ClientSecret = "oAMl_INnlHbFR4Us1lZiiBSD"                
+            //});
 
 
             //fpNode.Owin.MailRuMiddleware.MailRuAuthenticationOptions mOptions = new fpNode.Owin.MailRuMiddleware.MailRuAuthenticationOptions();

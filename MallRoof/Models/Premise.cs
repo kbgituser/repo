@@ -81,7 +81,7 @@ namespace MallRoof.Models
             return result;
         }
         [Display(Name = "Тип помещения")]
-        public Guid PremiseTypeId { get; set; }
+        public Guid? PremiseTypeId { get; set; }
         [Display(Name = "Тип помещения")]
         public virtual PremiseType PremiseType { get; set; }
 

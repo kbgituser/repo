@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\Mine\mallroof\MallRoof\bin\publish2\</_PublishTargetUrl>
+    <History>False|2021-06-27T12:42:41.7490555Z;False|2021-06-27T18:41:49.1085143+06:00;False|2021-06-27T18:33:28.6041415+06:00;False|2021-06-27T18:31:01.0593420+06:00;False|2021-06-27T18:10:44.7174686+06:00;</History>
+  </PropertyGroup>
+</Project>

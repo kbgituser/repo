@@ -914,9 +914,9 @@
     <EmbeddedResource Include="Migrations\202007231148082_mall_price.resx">
       <DependentUpon>202007231148082_mall_price.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009280901070_PremiseType.resx">
+    <!--<EmbeddedResource Include="Migrations\202009280901070_PremiseType.resx">
       <DependentUpon>202009280901070_PremiseType.cs</DependentUpon>
-    </EmbeddedResource>
+    </EmbeddedResource>-->
     <EmbeddedResource Include="Migrations\202010070908407_instagramphoto.resx">
       <DependentUpon>202010070908407_instagramphoto.cs</DependentUpon>
     </EmbeddedResource>

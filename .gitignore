@@ -1,0 +1,8 @@
+.vs/
+MallRoof/bin/
+MallRoof/obj/Debug/
+MallRoof/obj/Release/
+packages/
+StatusJob/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+StatusJob/bin/Debug/
+StatusJob/obj/Debug/

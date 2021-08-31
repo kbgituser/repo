@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .vs/
 MallRoof/bin/
 MallRoof/obj/Debug/
@@ -6,3 +7,9 @@ packages/
 StatusJob/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 StatusJob/bin/Debug/
 StatusJob/obj/Debug/
+=======
+MallRoof/bin/
+MallRoof/obj/
+packages/
+>>>>>>> 5a2668444f6ac62931ad30f4c404e66bddf40993
+Image instagram/MallRoof.zip

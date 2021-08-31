@@ -7,9 +7,9 @@ namespace MallRoof.Migrations
     {
         public override void Up()
         {
-            AddColumn("dbo.Premises", "PremiseTypeId", c => c.Guid(nullable: false));
+            AddColumn("dbo.Premises", "PremiseTypeId", c => c.Guid());
             CreateIndex("dbo.Premises", "PremiseTypeId");
-            AddForeignKey("dbo.Premises", "PremiseTypeId", "dbo.PremiseTypes", "PremiseTypeId", cascadeDelete: true);
+            AddForeignKey("dbo.Premises", "PremiseTypeId", "dbo.PremiseTypes", "PremiseTypeId");
         }
         
         public override void Down()

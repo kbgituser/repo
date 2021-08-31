@@ -13,7 +13,7 @@ namespace MallRoof.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202104090626452_premisetype"; }
+            get { return "202106271057215_premisetype"; }
         }
         
         string IMigrationMetadata.Source

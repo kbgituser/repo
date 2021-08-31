@@ -144,6 +144,7 @@ namespace MallRoof.Controllers
             ViewBag.PriceSortParam = order == "price" ? "price_desc" : "price";
             ViewBag.AreaSortParam = order == "area" ? "area_desc" : "area";
             premisesMallListModel.Cities = GetCities();
+            premises = premises.Include(p => p.Mall).Include(p => p.Photos).Include(p => p.Proposals);
 
             if (user != null && bool.TrueString == getMine)
             {
@@ -244,6 +245,10 @@ namespace MallRoof.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Premise premise = db.Premises.Find(id);
+            db.Entry(premise).Collection(p => p.Proposals).Load();
+            db.Entry(premise).Collection(p => p.PriceProposalToPremises).Load();
+            db.Entry(premise).Collection(p => p.Photos).Load();
+
             if (premise == null)
             {
                 return HttpNotFound();
